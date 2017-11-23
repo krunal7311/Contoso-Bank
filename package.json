@@ -1,0 +1,23 @@
+{
+  "name": "contoso-bank",
+  "version": "1.0.0",
+  "description": "Creating a chat bot for contoso bank that is going through digital transformation to better serve customers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krunal7311/Contoso-Bank.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/krunal7311/Contoso-Bank/issues"
+  },
+  "homepage": "https://github.com/krunal7311/Contoso-Bank#readme",
+  "dependencies": {
+    "botbuilder": "^3.12.0",
+    "restify": "^6.3.4"
+  }
+}
