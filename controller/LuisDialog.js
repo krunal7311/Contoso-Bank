@@ -13,7 +13,7 @@ exports.startDialog = function (bot) {
         function (session, args, next) {
             session.dialogData.args = args || {};        
             if (!session.conversationData["area"]) {
-                builder.Prompts.text(session, "Enter you area name.");                
+                builder.Prompts.text(session, "Okay, sure. I need to know your area first. Can you enter your area name ? ");                
             } else {
 next();        
         }
@@ -26,7 +26,7 @@ next();
                 }
                 session.send("Finding nearest branch");
                 food.displayAddress(session, session.conversationData["area"]);  
-                
+                session.endDialog();
         }
     ]).triggerAction({
         matches: 'getAddress'

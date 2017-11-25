@@ -24,5 +24,6 @@ function handleUserResponse(message, session, user)
             }
        }
 }
-session.send("Hi, %s. You have following accounts in our bank: %s", user, allAccounts);                
+session.send("Hi, %s. You have following accounts in our bank: %s", user, allAccounts);  
+session.endDialog();              
 }

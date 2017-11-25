@@ -29,9 +29,11 @@ function handleFavouriteFoodResponse(message, session, area) {
     // Print all favourite foods for the user that is currently logged in
  if(allFoods!="")
  {
-    session.send(" The address of the nearest branch to %s is: %s", area,allFoods);       
+    session.send(" The address of the nearest branch to %s is: %s", area,allFoods);   
+    session.endDialog();    
  }else{
     session.send("No branch found");       
+    session.endDialog();
     
  }
 }
