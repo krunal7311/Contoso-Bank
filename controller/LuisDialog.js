@@ -9,32 +9,54 @@ exports.startDialog = function (bot) {
 
     bot.recognizer(recognizer);
 
-     bot.dialog('getAddress', [
-        function (session, args, next) {
-            session.dialogData.args = args || {};        
-            if (!session.conversationData["area"]) {
-                builder.Prompts.text(session, "Okay, sure. I need to know your area first. Can you enter your area name ? ");                
-            } else {
-next();        
-        }
+    bot.dialog('getAddress', [
+        function requestarea(session, args, next) {
+            session.dialogData.args = args || {};   
+            var areaEntity = builder.EntityRecognizer.findEntity(session.dialogData.args.intent.entities, 'area');
+            if (areaEntity) {
+                if(areaEntity.entity=="me")
+                {
+                     if (!session.conversationData["area"]) 
+                     {
+                             builder.Prompts.text(session, "Sure, I'll need your area name for that. Can you enter your area name please?");                
+                            } 
+                }
+                else {
+                    next(); // Skip if we already have this info.
+               }
+    }
         },
         function (session, results, next) {
+            var usearea=results.response;
+            var location={};
+            if (results.response) {
+                session.conversationData["area"] = results.response;
+                location = usearea;
+                // session.send('Finding branches near \'%s\'', usearea);                
+            }
+            else{
+            // Pulls out the food entity from the session if it exists
+            var areaEntity = builder.EntityRecognizer.findEntity(session.dialogData.args.intent.entities, 'area');
 
-                if (results.response) {
-                    session.conversationData["area"] = results.response;
-                
-                }
-                session.send("Finding nearest branch");
-                food.displayAddress(session, session.conversationData["area"]);  
-                session.endDialog();
+            // Checks if the food entity was found
+            if (areaEntity) {
+          location = areaEntity.entity;
+                //       session.send('Finding branches near \'%s\'', areaEntity.entity);
+            } else {
+                session.send("No area identified!!!");
+            }
+           //     food.sendFavouriteFood(session, session.conversationData["username"], foodEntity.entity); // <-- LINE WE WANT
+
         }
+           session.send('Finding branches near \'%s\'', location);
+        //    food.displayAddress(session, session.conversationData["area"]); 
+            }
+        
+        
     ]).triggerAction({
         matches: 'getAddress'
     });
 
-
-
-   
 
      bot.dialog('getUser', [
         function (session, args, next) {
@@ -59,5 +81,6 @@ next();
         matches: 'GetUserAccount'
     });
     
+
 
 }

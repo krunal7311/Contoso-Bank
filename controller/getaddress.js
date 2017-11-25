@@ -3,21 +3,21 @@ var rest = require('/Volumes/Krunal/University/MSA/AdvancedTraining/Contoso-Bank
 
 exports.displayAddress = function getAddress(session, area){
     var url = 'http://kcontoso.azurewebsites.net/tables/kcontoso';
-    rest.getInfo(url, session, area, handleFavouriteFoodResponse)
+    rest.getBranches(url, session, area, handleAddressResponse)
 };
 
 
-function handleFavouriteFoodResponse(message, session, area) {
-    var favouriteFoodResponse = JSON.parse(message);
+function handleAddressResponse(message, session, area) {
+    var AddressResponse = JSON.parse(message);
     var allFoods = [];
-    for (var index in favouriteFoodResponse) {
-        var areaReceived = favouriteFoodResponse[index].area;
-        var Address = favouriteFoodResponse[index].Address;
+    for (var index in AddressResponse) {
+        var areaReceived = AddressResponse[index].area;
+        var Address = AddressResponse[index].Address;
 
         //Convert to lower case whilst doing comparison to ensure the user can type whatever they like
         if (area.toLowerCase() === areaReceived.toLowerCase()) {
             //Add a comma after all favourite foods unless last one
-            if(favouriteFoodResponse.length - 1) {
+            if(AddressResponse.length - 1) {
                 allFoods.push(Address);
             }
             else {
@@ -29,11 +29,9 @@ function handleFavouriteFoodResponse(message, session, area) {
     // Print all favourite foods for the user that is currently logged in
  if(allFoods!="")
  {
-    session.send(" The address of the nearest branch to %s is: %s", area,allFoods);   
-    session.endDialog();    
+    session.endDialog(" The address of the nearest branch to %s is: %s", area,allFoods);       
  }else{
-    session.send("No branch found");       
-    session.endDialog();
+    session.endDialog("No branch found");       
     
  }
 }

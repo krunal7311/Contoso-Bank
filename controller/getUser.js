@@ -1,9 +1,9 @@
 var rest = require('/Volumes/Krunal/University/MSA/AdvancedTraining/Contoso-Bank/API/RestClient');
 
 
-exports.displayUser = function getUser(session, area){
+exports.displayUser = function getUser(session, user){
     var url = 'http://kcontoso.azurewebsites.net/tables/userinfo';
-    rest.getInfo(url, session, area, handleUserResponse)
+    rest.getAccount(url, session, user, handleUserResponse)
 };
 
 
@@ -24,6 +24,5 @@ function handleUserResponse(message, session, user)
             }
        }
 }
-session.send("Hi, %s. You have following accounts in our bank: %s", user, allAccounts);  
-session.endDialog();              
+session.endDialog("Hi, %s. You have following accounts in our bank: %s", user, allAccounts);  
 }
