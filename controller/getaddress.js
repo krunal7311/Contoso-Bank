@@ -1,33 +1,33 @@
 var rest = require('/Volumes/Krunal/University/MSA/AdvancedTraining/Contoso-Bank/API/RestClient');
 
 
-exports.displayFavouriteFood = function getFavouriteFood(session, username){
+exports.displayAddress = function getAddress(session, area){
     var url = 'http://kcontoso.azurewebsites.net/tables/kcontoso';
-    rest.getFavouriteFood(url, session, username, handleFavouriteFoodResponse)
+    rest.getAddress(url, session, area, handleFavouriteFoodResponse)
 };
 
-function handleFavouriteFoodResponse(message, session, username) {
+
+function handleFavouriteFoodResponse(message, session, area) {
     var favouriteFoodResponse = JSON.parse(message);
     var allFoods = [];
     for (var index in favouriteFoodResponse) {
-        var usernameReceived = favouriteFoodResponse[index].username;
-        var address = favouriteFoodResponse[index].f;
+        var areaReceived = favouriteFoodResponse[index].area;
+        var Address = favouriteFoodResponse[index].Address;
 
-        var favouriteFood = favouriteFoodResponse[index].favouriteFood;
-        
-                //Convert to lower case whilst doing comparison to ensure the user can type whatever they like
-                if (username.toLowerCase() === usernameReceived.toLowerCase()) {
-                    //Add a comma after all favourite foods unless last one
-                    if(favouriteFoodResponse.length - 1) {
-                        allFoods.push(favouriteFood);
-                    }
-                    else {
-                        allFoods.push(favouriteFood + ', ');
-                    }
-                }        
+        //Convert to lower case whilst doing comparison to ensure the user can type whatever they like
+        if (area.toLowerCase() === areaReceived.toLowerCase()) {
+            //Add a comma after all favourite foods unless last one
+            if(favouriteFoodResponse.length - 1) {
+                allFoods.push(Address);
             }
-            
-            // Print all favourite foods for the user that is currently logged in
-            session.send("%s, your favourite foods are: %s", username, allFoods);                
-            
-        }
+            else {
+                allFoods.push(Address + ', ');
+            }
+        }        
+    }
+    
+    // Print all favourite foods for the user that is currently logged in
+    session.send("%s, The nearest branch to you is: %s", '',allFoods);       
+    session.send("%s,Here is the contact number:  %s", '',allFoods);         
+    
+}
