@@ -1,5 +1,6 @@
 var builder = require('botbuilder');
 var food=require("./getaddress");
+var userdetails=require("./getUser");
 
 exports.startDialog = function (bot) {
     
@@ -31,14 +32,32 @@ next();
         matches: 'getAddress'
     });
 
-    bot.dialog('welcome', function (session, args) {
-        
-                 session.send("Hi, May I know your name first? ");
-             
-     }).triggerAction({
-         matches: 'welcome'
-     });
-  
+
+
+   
+
+     bot.dialog('getUser', [
+        function (session, args, next) {
+            session.dialogData.args = args || {};        
+            if (!session.conversationData["user"]) {
+                builder.Prompts.text(session, "Could I have your username please");                
+            } else {
+                next(); // Skip if we already have this info.
+            }
+        },
+        function (session, results, next) {
+
+                if (results.response) {
+                    session.conversationData["user"] = results.response;
+                }
+
+                session.send("Retrieving your account information");
+                userdetails.displayUser(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
+            
+        }
+    ]).triggerAction({
+        matches: 'GetUserAccount'
+    });
     
 
 }

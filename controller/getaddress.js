@@ -3,7 +3,7 @@ var rest = require('/Volumes/Krunal/University/MSA/AdvancedTraining/Contoso-Bank
 
 exports.displayAddress = function getAddress(session, area){
     var url = 'http://kcontoso.azurewebsites.net/tables/kcontoso';
-    rest.getAddress(url, session, area, handleFavouriteFoodResponse)
+    rest.getInfo(url, session, area, handleFavouriteFoodResponse)
 };
 
 
@@ -29,8 +29,7 @@ function handleFavouriteFoodResponse(message, session, area) {
     // Print all favourite foods for the user that is currently logged in
  if(allFoods!="")
  {
-    session.send("%s, The nearest branch to you is: %s", '',allFoods);       
-    session.send("%s,Here is the contact number:  %s", '',allFoods);         
+    session.send(" The address of the nearest branch to %s is: %s", area,allFoods);       
  }else{
     session.send("No branch found");       
     
