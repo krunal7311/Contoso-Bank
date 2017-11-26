@@ -15,6 +15,7 @@ function handleAddressResponse(message, session, area)
         var address = addressResponse[index].Address;
      if (area.toLowerCase() === usernameReceived.toLowerCase()) {
             //Add a comma after all addresses unless last one
+           if(addressResponse.length - 1) {
                 allAddress.push(address);
             }
             else {

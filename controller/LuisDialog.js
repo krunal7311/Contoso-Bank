@@ -108,20 +108,15 @@ bot.dialog('getTransactions', [
 bot.dialog('logout', [
     function (session, args, next) {
         session.dialogData.args = args || {};        
-        if (!session.conversationData["user"]) {
+        if (!session.conversationData["user"]) { //See if there is any active login session
             session.endDialog("You are not logged in currently.");                
         } else {
-            next(); // Skip if we already have this info.
+            next(); 
         }
     },
     function (session, results, next) {
-
-          //  if (results.response) {
-               delete session.conversationData["user"];
-        //    }
-
+              delete session.conversationData["user"]; //delete session for the user
             session.endDialog("You have been logged out");
-        //    getTransactions.displayTransactions(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
         
     }
 ]).triggerAction({
