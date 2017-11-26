@@ -26,6 +26,7 @@ exports.startDialog = function (bot) {
                }
     }
         },
+
         function (session, results, next) {
             var usearea=results.response;
             var location={};
@@ -45,13 +46,10 @@ exports.startDialog = function (bot) {
             } else {
                 session.send("No area identified!!!");
             }
-           //     food.sendFavouriteFood(session, session.conversationData["username"], foodEntity.entity); // <-- LINE WE WANT
-
         }
-           session.send('Finding branches near \'%s\'', location);
-        //    food.displayAddress(session, session.conversationData["area"]); 
-            }
-        
+        session.send('Finding branches near \'%s\'', location);
+         food.displayAddress(session, location); 
+         }
         
     ]).triggerAction({
         matches: 'getAddress'
