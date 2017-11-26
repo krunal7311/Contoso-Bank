@@ -1,5 +1,6 @@
 var restify = require('restify');
 var builder = require('botbuilder');
+var luis = require('./controller/LuisDialog');
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -18,5 +19,7 @@ server.post('/api/messages', connector.listen());
 
 // Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
 var bot = new builder.UniversalBot(connector, function (session) {
-    session.send("You sent this message : %s", session.message.text);
+
+    session.send('Sorry, I did not understand \'%s\'. Type \'help\' if you need assistance.', session.message.text);
 });
+luis.startDialog(bot);
