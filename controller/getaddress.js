@@ -8,14 +8,13 @@ exports.displayAddress = function getAddress(session, area){
 
 function handleAddressResponse(message, session, area) 
 {
-    var accountResponse = JSON.parse(message);
+    var addressResponse = JSON.parse(message);
     var allAddress = []; 
-    for (var index in accountResponse) {
-        var usernameReceived = accountResponse[index].area;
-        var address = accountResponse[index].Address;
+    for (var index in addressResponse) {
+        var usernameReceived = addressResponse[index].area;
+        var address = addressResponse[index].Address;
      if (area.toLowerCase() === usernameReceived.toLowerCase()) {
-            //Add a comma after all favourite foods unless last one
-           if(accountResponse.length - 1) {
+            //Add a comma after all addresses unless last one
                 allAddress.push(address);
             }
             else {
@@ -23,5 +22,6 @@ function handleAddressResponse(message, session, area)
             }
        }
 }
-session.endDialog("Nearest branch to  %s is: %s", area, allAddress);  
+session.endDialog("Nearest branch to  %s is: %s", area, allAddress); 
+
 }
