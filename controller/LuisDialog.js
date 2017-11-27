@@ -166,8 +166,7 @@ bot.dialog('addPayees', [
 
                 session.conversationData["payee"] = results.response;
            }
-   //        session.send('Created new Payee:  \'%s\'', session.conversationData["payee"]);
-        //   managePayees.addPayee(session, session.conversationData["user"], session.conversationData["payee"]);
+   
            builder.Prompts.text(session,'Now enter the account number', session.conversationData["payee"]);           
         },
         function(session,results,next)
@@ -186,7 +185,7 @@ bot.dialog('addPayees', [
 });
 
 //Delete Payees
-bot.dialog('delete', [
+bot.dialog('deletePayee', [
     function (session, args, next) {
         session.dialogData.args = args || {};        
         if (!session.conversationData["user"]) {
@@ -211,34 +210,37 @@ bot.dialog('delete', [
                 //    session.send('Added new Payee:  \'%s\'', payeeEntity.entity);
             //    managePayees.addPayee(session, session.conversationData["user"], payeeEntity.entity); // <-- LINE WE WANT
             } else {
-                builder.Prompts.text(session,"Okay, what would be the payee name?");
+                builder.Prompts.text(session,"Okay, which payee do you want me to delete?");
             }
         },
         function(session,results,next)
         {
             if (results.response) {
-                session.send('Creating new payee...');      
+                session.send('Deleting the payee...');      
 
                 session.conversationData["payee"] = results.response;
+           } else 
+           {
+               next();
            }
-   //        session.send('Created new Payee:  \'%s\'', session.conversationData["payee"]);
-           managePayees.addPayee(session, session.conversationData["user"], session.conversationData["payee"]);
-           builder.Prompts.text(session,'Now enter the account number', session.conversationData["payee"]);           
+   
+         //  builder.Prompts.text(session,'Now enter the account number', session.conversationData["payee"]);           
         },
         function(session,results,next)
         {
-            if (results.response) {
-                session.send('Adding account number...');                           
-                session.conversationData["accountnumber"] = results.response;
-           }
-           session.send('Created new payee:  %s with account number %s', session.conversationData["payee"], session.conversationData["accountnumber"] );
-           managePayees.addPayee(session,session.conversationData["user"], session.conversationData["payee"], session.conversationData["accountnumber"]);
+          //  if (results.response) {
+            //    session.send('Adding account number...');                           
+              //  session.conversationData["accountnumber"] = results.response;
+    //       }
+           session.send('Deleted the payee : %s', session.conversationData["payee"] );
+           managePayees.deletePayee(session,session.conversationData["user"], session.conversationData["payee"]);
         }
    // }
    
 ]).triggerAction({
-    matches: 'addPayees'
+    matches: 'deletePayee'
 });
+
 
 
 
