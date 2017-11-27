@@ -23,6 +23,5 @@ function handleAddressResponse(message, session, area)
             }
        }
 }
-session.endDialog("Nearest branch to  %s is: %s", area, allAddress); 
-
+session.send("Nearest branch to  %s is: %s", area, allAddress); 
 }

@@ -5,7 +5,7 @@ var getTransactions=require("./getTransactions")
 exports.startDialog = function (bot) {
     
     // Replace {YOUR_APP_ID_HERE} and {YOUR_KEY_HERE} with your LUIS app ID and your LUIS key, respectively.
-    var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/37869790-4aa9-40f2-a77e-ad2cca77cd82?subscription-key=268e389caeb54316bccb0b3fc279d22c&verbose=true&timezoneOffset=0&q=');
+    var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/8d91389d-1f2d-49d4-a961-d79b7b52e241?subscription-key=dfc5411a96604a3ca280f41051ece8a8&verbose=true&timezoneOffset=0&q=');
 
     bot.recognizer(recognizer);
 
@@ -13,7 +13,7 @@ exports.startDialog = function (bot) {
         function requestarea(session, args, next) {
             session.dialogData.args = args || {};   
             var areaEntity = builder.EntityRecognizer.findEntity(session.dialogData.args.intent.entities, 'area');
-    //        if (areaEntity) {
+       //     if (areaEntity) {
                 if (!session.conversationData["area"]) 
                      {
                         if(areaEntity.entity=="me")
@@ -26,8 +26,7 @@ exports.startDialog = function (bot) {
                            }
                 } else {
                     next(); // Skip if we already have this info.
-               }
-                
+               }     
   //  }
         },
 
@@ -37,6 +36,7 @@ exports.startDialog = function (bot) {
             if (results.response) {
                 session.conversationData["area"] = results.response;
                 location = usearea;
+
             }
             else{
             var areaEntity = builder.EntityRecognizer.findEntity(session.dialogData.args.intent.entities, 'area');
@@ -44,13 +44,13 @@ exports.startDialog = function (bot) {
             // Checks if the area entity was found
             if (areaEntity) {
           location = areaEntity.entity;
-                //       session.send('Finding branches near \'%s\'', areaEntity.entity);
             } else {
                 session.send("No area identified!!!");
             }
         }
         session.send('Finding branches near \'%s\'', location);
          getAddress.displayAddress(session, location); 
+         delete session.conversationData["area"];
          }
         
     ]).triggerAction({
@@ -62,7 +62,8 @@ exports.startDialog = function (bot) {
         function (session, args, next) {
             session.dialogData.args = args || {};        
             if (!session.conversationData["user"]) {
-                builder.Prompts.text(session, "Sure, Could I have your username please");                
+                builder.Prompts.text(session, "Sure, Could I have your username please"); 
+                next();               
             } else {
                 next(); // Skip if we already have this info.
             }
@@ -123,6 +124,49 @@ bot.dialog('logout', [
     matches: 'logout'
 });
 
+bot.dialog('help', [
+    function (session, args) {
+        var endOfLine = require('os').EOL;              
+            session.endDialog("Here is what I can do: "+endOfLine+'\nType something like:'+endOfLine+'\n"My accounts" to get your account information'+endOfLine+'\n"My transactions" to get your transactions'+endOfLine+'\n"Branches near Glenfield/ me" to get information about the closest branch'+endOfLine+'\n"Logout" to log off');                        
+    },
+   
+]).triggerAction({
+    matches: 'help'
+});
 
+
+bot.dialog('bye', [
+    function (session, args, next) {
+        session.dialogData.args = args || {};        
+        if (session.conversationData["user"]) { //See if there is any active login session
+            session.endConversation("You have been logged out. Thanks, have a great day!");                
+        } else {
+            next(); 
+        }
+    },
+    function (session, results, next) {
+
+        session.endDialog('Thank you, Have a great day!');
+    }
+]).triggerAction({
+    matches: 'bye'
+});
+
+bot.dialog('welcome', [
+    function (session, args, next) {
+        session.dialogData.args = args || {};        
+        if (!session.conversationData["user"]) { //See if there is any active login session
+            session.send("Hi, I am your personal banking bot. Type 'help' if you need any assistance.");                
+        } else {
+            next(); 
+        }
+    },
+    function (session, results, next) {
+
+        session.send("Hi %s, I am your personal banking bot. Type 'help' if you need any assistance.",session.conversationData["user"] );
+    }
+]).triggerAction({
+    matches: 'welcome'
+});
 
 }
