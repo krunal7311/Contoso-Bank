@@ -95,8 +95,10 @@ bot.dialog('getTransactions', [
     function (session, results, next) {
 
             if (results.response) {
-                session.conversationData.user = results.response;
-                session.endDialog("Retrieving your transactions", results.response);
+        //        session.conversationData.user = results.response;
+                console.log(JSON.stringify(results));
+                session.endDialogWithResult(results.response);
+         //     session.endDialog("Retrieving your transactions", results.response);
                 
            }
 
