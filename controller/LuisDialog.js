@@ -123,7 +123,7 @@ bot.dialog('displayPayee', [
             }
 
             session.send("Retrieving your payees...");
-            getTransactions.displayTransactions(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
+            managePayees.displayPayees(session, session.conversationData["user"]);   // <---- THIS LINE HERE IS WHAT WE NEED 
         
     }
 ]).triggerAction({
