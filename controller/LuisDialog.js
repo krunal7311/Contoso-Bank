@@ -141,11 +141,11 @@ bot.dialog('addPayees', [
         }
     },
     function (session, results, next) {
-        if (!isAttachment(session)) {
+       // if (!isAttachment(session)) {
             if (results.response) {
                 session.conversationData["user"] = results.response;
                 session.send('Added new Payee:  \'%s\'', session.conversationData["user"]);          
-            }
+           }
             // Pulls out payee entity from the session if it exists
             var payeeEntity = builder.EntityRecognizer.findEntity(session.dialogData.args.intent.entities, 'payee');
 
@@ -157,7 +157,7 @@ bot.dialog('addPayees', [
                 session.send("No payee identified!!!");
             }
         }
-    }
+   // }
    
 ]).triggerAction({
     matches: 'addPayees'
