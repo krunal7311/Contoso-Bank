@@ -144,11 +144,12 @@ bot.dialog('addPayees', [
         if (!isAttachment(session)) {
             if (results.response) {
                 session.conversationData["user"] = results.response;
+                session.send('Added new Payee:  \'%s\'', session.conversationData["user"]);          
             }
-            // Pulls out the food entity from the session if it exists
+            // Pulls out payee entity from the session if it exists
             var payeeEntity = builder.EntityRecognizer.findEntity(session.dialogData.args.intent.entities, 'payee');
 
-            // Checks if the food entity was found
+            // Checks if the payee entity was found
             if (payeeEntity) {
                 session.send('Added new Payee:  \'%s\'', payeeEntity.entity);
                 managePayees.addPayee(session, session.conversationData["user"], payeeEntity.entity); // <-- LINE WE WANT
