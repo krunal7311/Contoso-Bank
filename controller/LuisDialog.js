@@ -151,8 +151,10 @@ bot.dialog('addPayees', [
 
             // Checks if the payee entity was found
             if (payeeEntity) {
-                session.send('Added new Payee:  \'%s\'', payeeEntity.entity);
-                managePayees.addPayee(session, session.conversationData["user"], payeeEntity.entity); // <-- LINE WE WANT
+            next();
+            session.conversationData["payee"] = payeeEntity;
+                //    session.send('Added new Payee:  \'%s\'', payeeEntity.entity);
+            //    managePayees.addPayee(session, session.conversationData["user"], payeeEntity.entity); // <-- LINE WE WANT
             } else {
                 builder.Prompts.text(session,"Okay, what would be the payee name?");
             }
@@ -160,12 +162,13 @@ bot.dialog('addPayees', [
         function(session,results,next)
         {
             if (results.response) {
-                session.send('Creating new payee...');                           
+                session.send('Creating new payee...');      
+
                 session.conversationData["payee"] = results.response;
            }
    //        session.send('Created new Payee:  \'%s\'', session.conversationData["payee"]);
            managePayees.addPayee(session, session.conversationData["user"], session.conversationData["payee"]);
-           builder.Prompts.text(session,'Now enter the account number for %s', session.conversationData["payee"]);           
+           builder.Prompts.text(session,'Now enter the account number', session.conversationData["payee"]);           
         },
         function(session,results,next)
         {
