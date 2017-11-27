@@ -55,7 +55,7 @@ exports.startDialog = function (bot) {
         
     ]).triggerAction({
         matches: 'getAddress'
-    });/*
+    });*/
 
 //Get user account types 
      bot.dialog('getUser', [
