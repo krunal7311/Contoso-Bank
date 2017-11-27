@@ -160,11 +160,21 @@ bot.dialog('addPayees', [
         function(session,results,next)
         {
             if (results.response) {
+                session.endSend('Creating new payee...');                           
                 session.conversationData["payee"] = results.response;
-                session.endDialog('Adding new payee :  \'%s\'', session.conversationData["payee"]);          
            }
-           session.send('Added new Payee:  \'%s\'', session.conversationData["payee"]);
+   //        session.send('Created new Payee:  \'%s\'', session.conversationData["payee"]);
            managePayees.addPayee(session, session.conversationData["user"], session.conversationData["payee"]);
+           builder.Prompts.text(session,"Now enter the account number for %s", session.conversationData["payee"]);           
+        },
+        function(session,results,next)
+        {
+            if (results.response) {
+                session.endSend('Adding account number...');                           
+                session.conversationData["accountnumber"] = results.response;
+           }
+           session.send('Created new payee:  %s with account number %s', session.conversationData["payee"], session.conversationData["accountnumber"] );
+           managePayees.addPayee(session, session.conversationData["payee"], session.conversationData["accountnumber"]);
         }
    // }
    
