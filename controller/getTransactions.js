@@ -16,10 +16,10 @@ function handleTransactionResponse(message, session, user)
         var usernameReceived = accountResponse[index].user;
         var transaction = accountResponse[index].transaction;
         var amount = accountResponse[index].Amount;
-    //   if (user.toLowerCase() === usernameReceived.toLowerCase()) {
+       if (user.toLowerCase() === usernameReceived.toLowerCase()) {
             //Add a comma after all favourite foods unless last one
          //   if(accountResponse.length - 1) {
-           //     allAccounts.push(transaction,amount);
+                allAccounts.push(transaction,amount);
             
            //     allAmounts.push(amount);
 //}
@@ -27,8 +27,8 @@ function handleTransactionResponse(message, session, user)
           //      allAccounts.push(transaction,amount,'\n');
            //     allAmounts.push(amount + ',');
             //}
-      // }
+       }
        
 }
-session.endDialog("Your spendings are : %s ", usernameReceived); 
+session.endDialog("Your spendings are : %s ", allAccounts); 
 }

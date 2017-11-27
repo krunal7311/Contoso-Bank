@@ -87,7 +87,7 @@ bot.dialog('getTransactions', [
     function (session, args, next) {
         session.dialogData.args = args || {};        
         if (!session.conversationData["user"]) {
-            builder.Prompts.text(session, "Enter username");                
+            builder.Prompts.text(session, "Sure, Could I have your username please");                
         } else {
             next(); // Skip if we already have this info.
         }
@@ -98,8 +98,8 @@ bot.dialog('getTransactions', [
                 session.conversationData["user"] = results.response;
             }
 
-            session.send("Retrieving your favourite foods %s", session.conversationData["user"]);
-           getTransactions.displayTransactions(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
+            session.send("Retrieving your transactions");
+            getTransactions.displayTransactions(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
         
     }
 ]).triggerAction({
