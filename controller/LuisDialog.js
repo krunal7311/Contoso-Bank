@@ -98,7 +98,7 @@ bot.dialog('getTransactions', [
                 session.conversationData["user"] = results.response;
             }
 
-            session.endDialog("Retrieving your transactions");
+            session.endDialog("Retrieving your transactions %s", results.response);
  //           getTransactions.displayTransactions(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
         
     }
