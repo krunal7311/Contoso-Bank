@@ -87,7 +87,7 @@ bot.dialog('getTransactions', [
     function (session, args, next) {
         session.dialogData.args = args || {};        
         if (!session.conversationData["user"]) {
-            builder.Prompts.text(session, "Enter a username to setup your account.");                
+            builder.Prompts.text(session, "Enter username");                
         } else {
             next(); // Skip if we already have this info.
         }
@@ -96,9 +96,10 @@ bot.dialog('getTransactions', [
 
             if (results.response) {
                 session.conversationData["user"] = results.response;
+                session.send("Retrieving your favourite foods", session.conversationData["user"]);
             }
 
-            session.send("Retrieving your favourite foods", session.conversationData["user"]);
+        //    session.send("Retrieving your favourite foods", session.conversationData["user"]);
           //  food.displayFavouriteFood(session, session.conversationData["username"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
         
     }
