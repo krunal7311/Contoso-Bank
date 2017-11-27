@@ -87,12 +87,12 @@ bot.dialog('getTransactions', [
         session.dialogData.args = args || {};        
         if (!session.conversationData["user"]) {
             builder.Prompts.text(session, "Sure, Could I have your username please");  
-            session.send("Retrieving your account information for %s", results.response);               
+            session.endDialog("Retrieving your account information for %s", results.response);               
         } else {
             next(); // Skip if we already have this info.
         }
     },
-    function (session, results, next) {
+    function (session, results) {
 
             if (results.response) {
                 session.conversationData["user"] = results.response;
