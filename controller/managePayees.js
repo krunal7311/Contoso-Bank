@@ -1,17 +1,17 @@
 var rest = require('../API/Restclient');
 
-exports.displayPayees = function displayPayees(session, username){
+exports.displayPayees = function displayPayees(session, user){
     var url = 'http://contosotables.azurewebsites.net/tables/payees';
     rest.getPayee(url, session, user, handlePayeeResponse)
 };
 
-exports.addPayee = function addPayee(session, username, favouritefood){
+exports.addPayee = function addPayee(session, user, favouritefood){
     var url = 'http://contosotables.azurewebsites.net/tables/payees';
     rest.addPayee(url, user, payee);
 };
 
 
-function handlePayeeResponse(message, session, username) {
+function handlePayeeResponse(message, session, user) {
     var favouriteFoodResponse = JSON.parse(message);
     var allFoods = [];
     for (var index in favouriteFoodResponse) {
@@ -19,7 +19,7 @@ function handlePayeeResponse(message, session, username) {
         var favouritefood = favouriteFoodResponse[index].payee;
 
         //Convert to lower case whilst doing comparison to ensure the user can type whatever they like
-        if (username.toLowerCase() === usernameReceived.toLowerCase()) {
+        if (user.toLowerCase() === usernameReceived.toLowerCase()) {
             //Add a comma after all favourite foods unless last one
             if(favouriteFoodResponse.length - 1) {
                 allFoods.push(favouritefood);
