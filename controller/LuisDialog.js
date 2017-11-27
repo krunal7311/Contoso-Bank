@@ -69,9 +69,10 @@ exports.startDialog = function (bot) {
             }
         },
         function (session, results, next) {
+session.send(results);
                 if (results.response) {
                     session.conversationData["user"] = results.response;
-                   //session.send("Retrieving your account information for %s", session.conversationData["user"] );                    
+                   // session.send("Retrieving your account information for %s", session.conversationData["user"] );                    
                 }
 
                 userdetails.displayUser(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
@@ -86,21 +87,19 @@ bot.dialog('getTransactions', [
     function (session, args, next) {
         session.dialogData.args = args || {};        
         if (!session.conversationData["user"]) {
-            builder.Prompts.text(session, "Sure, Could I have your username please");  
-           // session.endDialog("Retrieving your account information for %s", results.response);               
+            builder.Prompts.text(session, "Sure, Could I have your username please");                
         } else {
             next(); // Skip if we already have this info.
         }
     },
-    function (session, results) {
+    function (session, results, next) {
 
             if (results.response) {
-                console.log(JSON.stringify(results))
-             //   session.conversationData["user"] = session.endDialogWithResult("retireving transactions for",results.response);
-               // getTransactions.displayTransactions(session, session.conversationData["user"]); 
+                session.conversationData.user = results.response;
             }
 
- //           getTransactions.displayTransactions(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
+            session.endDialog("Retrieving your transactions", session.conversationData.user);
+         //   getTransactions.displayTransactions(session, session.conversationData.user);  // <---- THIS LINE HERE IS WHAT WE NEED 
         
     }
 ]).triggerAction({
