@@ -167,7 +167,7 @@ bot.dialog('addPayees', [
                 session.conversationData["payee"] = results.response;
            }
    
-           builder.Prompts.text(session,'Now enter the account number', session.conversationData["payee"]);           
+           builder.Prompts.text(session,'Now enter the payees account number', session.conversationData["payee"]);           
         },
         function(session,results,next)
         {
