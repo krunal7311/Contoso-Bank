@@ -1,7 +1,7 @@
 var rest = require('../API/RestClient');
 
 
-exports.displayPayees = function getAddress(session, area){
+exports.displayPayees = function getAddress(session, user){
     var url = 'http://contosotables.azurewebsites.net/tables/payees';
     rest.getPayee(url, session, user, handleGetPayeeResponse)
 };
