@@ -2,6 +2,7 @@ var builder = require('botbuilder');
 var getAddress=require("./getaddress");
 var userdetails=require("./getUser");
 var getTransactions=require("./getTransactions")
+var managePayees=require("./managePayees")
 exports.startDialog = function (bot) {
     
     // Replace {YOUR_APP_ID_HERE} and {YOUR_KEY_HERE} with your LUIS app ID and your LUIS key, respectively.
@@ -98,13 +99,38 @@ bot.dialog('getTransactions', [
             }
 
             session.send("Retrieving your transactions");
-            getTransactions.displayTransactions(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
+            managePayees.displayPayees(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
         
     }
 ]).triggerAction({
     matches: 'getTransactions'
 });
 
+//Add Payees
+bot.dialog('displayPayee', [
+    function (session, args, next) {
+        session.dialogData.args = args || {};        
+        if (!session.conversationData["user"]) {
+            builder.Prompts.text(session, "Sure, Could I have your username please");                
+        } else {
+            next(); // Skip if we already have this info.
+        }
+    },
+    function (session, results, next) {
+
+            if (results.response) {
+                session.conversationData["user"] = results.response;
+            }
+
+            session.send("Retrieving your payees...");
+            getTransactions.displayTransactions(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
+        
+    }
+]).triggerAction({
+    matches: 'displayPayee'
+});
+
+//Logout
 bot.dialog('logout', [
     function (session, args, next) {
         session.dialogData.args = args || {};        
@@ -123,6 +149,7 @@ bot.dialog('logout', [
     matches: 'logout'
 });
 
+//Help
 bot.dialog('help', [
     function (session, args) {
         var endOfLine = require('os').EOL;              
@@ -133,7 +160,7 @@ bot.dialog('help', [
     matches: 'help'
 });
 
-
+//User exits
 bot.dialog('bye', [
     function (session, args, next) {
         session.dialogData.args = args || {};        
@@ -151,6 +178,7 @@ bot.dialog('bye', [
     matches: 'bye'
 });
 
+//User enters
 bot.dialog('welcome', [
     function (session, args, next) {
         session.dialogData.args = args || {};        
