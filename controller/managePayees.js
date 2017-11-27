@@ -1,39 +1,37 @@
-var rest = require('../API/Restclient');
+var rest = require('../API/RestClient');
 
-exports.displayPayees = function displayPayees(session, user){
+
+exports.displayAddress = function getAddress(session, area){
     var url = 'http://contosotables.azurewebsites.net/tables/payees';
-    rest.getPayee(url, session, user, handlePayeeResponse)
+    rest.getPayee(url, session, user, handleGetPayeeResponse)
 };
 
+function handleGetPayeeResponse(message, session, user) 
+{
+    var accountResponse = JSON.parse(message);
+    var allPayees = [];
+    for (var index in accountResponse) {
+        var usernameReceived = accountResponse[index].user;
+        var payees = accountResponse[index].payee;
+       if (user.toLowerCase() === usernameReceived.toLowerCase()) {
+            //Add a comma after all favourite foods unless last one
+            if(accountResponse.length - 1) {
+                allPayees.push(payees);
+            }
+            else {
+                allPayees.push(payees + ', ');
+            }
+       }
+}
+session.endDialog("You payees list: %s", allPayees);  
+}
+/*
 exports.addPayee = function addPayee(session, user, favouritefood){
     var url = 'http://contosotables.azurewebsites.net/tables/payees';
     rest.addPayee(url, user, payee);
 };
 
 
-function handlePayeeResponse(message, session, user) {
-    var favouriteFoodResponse = JSON.parse(message);
-    var allFoods = [];
-    for (var index in favouriteFoodResponse) {
-        var usernameReceived = favouriteFoodResponse[index].user;
-        var favouritefood = favouriteFoodResponse[index].payee;
-
-        //Convert to lower case whilst doing comparison to ensure the user can type whatever they like
-        if (user.toLowerCase() === usernameReceived.toLowerCase()) {
-            //Add a comma after all favourite foods unless last one
-            if(favouriteFoodResponse.length - 1) {
-                allFoods.push(favouritefood);
-            }
-            else {
-                allFoods.push(favouritefood + ', ');
-            }
-        }        
-    }
-    
-    // Print all favourite foods for the user that is currently logged in
-    session.send("Your payees are : %s", allFoods);                
-    
-}
 
 
 exports.deletePayee = function deletePayee(session,user,payee){
@@ -63,5 +61,5 @@ exports.deletePayee = function deletePayee(session,user,payee){
 function handlePayeeResponse(body,session,username, favouritefood){
     console.log('Done');
 }
-
+*/
 
