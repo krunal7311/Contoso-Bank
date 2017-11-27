@@ -217,9 +217,9 @@ bot.dialog('deletePayee', [
         function(session,results,next)
         {
             if (results.response) {
-                session.send('Deleting the payee...');      
-
                 session.conversationData["payee"] = results.response;
+                session.send('Deleting the payee %s', session.conversationData["payee"]);      
+                next();
            } else 
            {
                next();
