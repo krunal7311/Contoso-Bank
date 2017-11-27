@@ -8,7 +8,7 @@ exports.startDialog = function (bot) {
     var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/8d91389d-1f2d-49d4-a961-d79b7b52e241?subscription-key=dfc5411a96604a3ca280f41051ece8a8&verbose=true&timezoneOffset=0&q=');
 
     bot.recognizer(recognizer);
-/*
+
     bot.dialog('getAddress', [
         function requestarea(session, args, next) {
             session.dialogData.args = args || {};   
@@ -150,7 +150,7 @@ bot.dialog('bye', [
     }
 ]).triggerAction({
     matches: 'bye'
-});*/
+});
 
 bot.dialog('welcome', [
     function (session, args, next) {
