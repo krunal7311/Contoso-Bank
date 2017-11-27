@@ -242,7 +242,23 @@ bot.dialog('deletePayee', [
     matches: 'deletePayee'
 });
 
-
+bot.dialog('ExchangeRate', function(session, args) {
+    
+            if (session.message && session.message.value) {
+                var base = session.message.value.base;
+                var conversion = session.message.value.conversion;
+                currencyConversion.displayConversions(session, base, conversion);
+            } else {
+                session.dialogData.args = args || {};
+                var adaptiveCard = currencyConversion.displayConversions(session);
+                var msg = new builder.Message(session).addAttachment(adaptiveCard)
+                session.send(msg);
+            }
+    
+        }).triggerAction({
+            matches: 'ExchangeRate'
+    });
+    
 
 
 //Logout
