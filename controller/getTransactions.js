@@ -1,4 +1,4 @@
-var rest = require('/Volumes/Krunal/University/MSA/AdvancedTraining/Contoso-Bank/API/RestClient');
+var rest = require('../API/RestClient');
 var builder = require('botbuilder');
 
 exports.displayTransactions = function getTransactions(session, user){

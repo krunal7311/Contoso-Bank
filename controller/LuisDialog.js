@@ -83,7 +83,7 @@ exports.startDialog = function (bot) {
     });
     
 //Get user transactions
-/*bot.dialog('getTransactions', [
+bot.dialog('getTransactions', [
     function (session, args, next) {
         session.dialogData.args = args || {};        
         if (!session.conversationData["user"]) {
@@ -104,7 +104,7 @@ exports.startDialog = function (bot) {
     }
 ]).triggerAction({
     matches: 'getTransactions'
-});*/
+});
 
 bot.dialog('logout', [
     function (session, args, next) {
