@@ -2,7 +2,7 @@ var rest = require('../API/RestClient');
 var builder = require('botbuilder');
 
 exports.displayTransactions = function getTransactions(session, user){
-    var url = 'http://kcontoso.azurewebsites.net/tables/contosoTransactions';
+    var url = 'http://contosotables.azurewebsites.net/tables/contosoTransactions';
     rest.getAccount(url, session, user, handleTransactionResponse)
 };
 
