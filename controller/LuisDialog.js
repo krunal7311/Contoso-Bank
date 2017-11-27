@@ -151,8 +151,8 @@ bot.dialog('addPayees', [
 
             // Checks if the payee entity was found
             if (payeeEntity) {
-            next();
-            session.conversationData["payee"] = payeeEntity;
+            session.conversationData["payee"] = payeeEntity.entity;
+            next();            
                 //    session.send('Added new Payee:  \'%s\'', payeeEntity.entity);
             //    managePayees.addPayee(session, session.conversationData["user"], payeeEntity.entity); // <-- LINE WE WANT
             } else {
