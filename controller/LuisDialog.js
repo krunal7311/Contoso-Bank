@@ -154,7 +154,7 @@ bot.dialog('addPayees', [
                 session.send('Added new Payee:  \'%s\'', payeeEntity.entity);
                 managePayees.addPayee(session, session.conversationData["user"], payeeEntity.entity); // <-- LINE WE WANT
             } else {
-                session.prompts.text("Okay, what would be the payee name?");
+                builder.prompts.text("Okay, what would be the payee name?");
             }
         },
         function(session,results,next)
