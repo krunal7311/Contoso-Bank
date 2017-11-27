@@ -28,9 +28,9 @@ session.endDialog("Your payees list: %s", allPayees);
 
 
 
-exports.addPayee = function addPayee(session, user, payee){
+exports.addPayee = function addPayee(session, user, payee, accountnumber){
     var url = 'http://contosotables.azurewebsites.net/tables/payees';
-    rest.addPayee(url, user, payee);
+    rest.addPayee(url, user, payee, accountnumber);
 };
 
 

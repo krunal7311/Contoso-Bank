@@ -33,7 +33,7 @@ exports.getPayee = function getData(url, session, user, callback){
 
 
 
-exports.addPayee = function sendData(url, user, payee){
+exports.addPayee = function sendData(url, user, payee, accountnumber){
     var options = {
         url: url,
         method: 'POST',
@@ -43,7 +43,8 @@ exports.addPayee = function sendData(url, user, payee){
         },
         json: {
             "user" : user,
-            "payee" : payee
+            "payee" : payee,
+            "accountnumber": accountnumber
         }
       };
       

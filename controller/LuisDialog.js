@@ -165,7 +165,7 @@ bot.dialog('addPayees', [
            }
    //        session.send('Created new Payee:  \'%s\'', session.conversationData["payee"]);
            managePayees.addPayee(session, session.conversationData["user"], session.conversationData["payee"]);
-           builder.Prompts.text(session,"Now enter the account number for %s", session.conversationData["payee"]);           
+           builder.Prompts.text(session,'Now enter the account number for %s', session.conversationData["payee"]);           
         },
         function(session,results,next)
         {
@@ -174,7 +174,7 @@ bot.dialog('addPayees', [
                 session.conversationData["accountnumber"] = results.response;
            }
            session.send('Created new payee:  %s with account number %s', session.conversationData["payee"], session.conversationData["accountnumber"] );
-           managePayees.addPayee(session, session.conversationData["payee"], session.conversationData["accountnumber"]);
+           managePayees.addPayee(session,session.conversationData["user"], session.conversationData["payee"], session.conversationData["accountnumber"]);
         }
    // }
    
