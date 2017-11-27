@@ -96,10 +96,9 @@ bot.dialog('getTransactions', [
 
             if (results.response) {
                 session.conversationData["user"] = results.response;
-                session.send("Retrieving your favourite foods", session.conversationData["user"]);
             }
 
-        //    session.send("Retrieving your favourite foods", session.conversationData["user"]);
+            session.send("Retrieving your favourite foods %s", session.conversationData["user"]);
           //  food.displayFavouriteFood(session, session.conversationData["username"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
         
     }
