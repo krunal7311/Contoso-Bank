@@ -160,7 +160,7 @@ bot.dialog('addPayees', [
         function(session,results,next)
         {
             if (results.response) {
-                session.endSend('Creating new payee...');                           
+                session.send('Creating new payee...');                           
                 session.conversationData["payee"] = results.response;
            }
    //        session.send('Created new Payee:  \'%s\'', session.conversationData["payee"]);
@@ -170,7 +170,7 @@ bot.dialog('addPayees', [
         function(session,results,next)
         {
             if (results.response) {
-                session.Send('Adding account number...');                           
+                session.send('Adding account number...');                           
                 session.conversationData["accountnumber"] = results.response;
            }
            session.send('Created new payee:  %s with account number %s', session.conversationData["payee"], session.conversationData["accountnumber"] );
