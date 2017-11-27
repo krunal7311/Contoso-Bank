@@ -95,10 +95,9 @@ bot.dialog('getTransactions', [
     function (session, results) {
 
             if (results.response) {
-                session.conversationData["user"] = results.response;
+                session.endDialog("Retrieving your transactions %s", results.response);
             }
 
-            session.endDialog("Retrieving your transactions %s", session.conversationData["User"]);
  //           getTransactions.displayTransactions(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
         
     }
