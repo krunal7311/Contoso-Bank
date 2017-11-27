@@ -2,7 +2,7 @@ var rest = require('../API/RestClient');
 
 
 exports.displayAddress = function getAddress(session, area){
-    var url = 'http://kcontoso.azurewebsites.net/tables/kcontoso';
+    var url = 'http://contosotables.azurewebsites.net/tables/kcontoso';
     rest.getAddress(url, session, area, handleAddressResponse)
 };
 

@@ -3,7 +3,7 @@ var builder = require('botbuilder');
 
 
 exports.displayUser = function getUser(session, user){
-    var url = 'http://kcontoso.azurewebsites.net/tables/userinfo';
+    var url = 'http://contosotables.azurewebsites.net/tables/contosoTransactions';
     rest.getAccount(url, session, user, handleUserResponse)
 };
 
