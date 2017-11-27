@@ -17,7 +17,7 @@ function handleTransactionResponse(message, session, user)
         var transaction = accountResponse[index].transaction;
         var amount = accountResponse[index].Amount;
        if (user.toLowerCase() === usernameReceived.toLowerCase()) {
-            //Add a comma after all favourite foods unless last one
+            //Add a comma after all transactions unless last one
          //   if(accountResponse.length - 1) {
                 allAccounts.push(transaction,amount);
             

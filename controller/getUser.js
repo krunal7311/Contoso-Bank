@@ -16,7 +16,7 @@ function handleUserResponse(message, session, user)
         var usernameReceived = accountResponse[index].user;
         var accounts = accountResponse[index].account;
        if (user.toLowerCase() === usernameReceived.toLowerCase()) {
-            //Add a comma after all favourite foods unless last one
+            //Add a comma after all accounts unless last one
             if(accountResponse.length - 1) {
                 allAccounts.push(accounts);
             }

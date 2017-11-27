@@ -14,7 +14,7 @@ function handleGetPayeeResponse(message, session, user)
         var usernameReceived = payeeResponse[index].user;
         var payees = payeeResponse[index].payee;
        if (user.toLowerCase() === usernameReceived.toLowerCase()) {
-            //Add a comma after all favourite foods unless last one
+            //Add a comma after all payees unless last one
             if(payeeResponse.length - 1) {
                 allPayees.push(payees);
             }
@@ -41,15 +41,15 @@ exports.deletePayee = function deletePayee(session,user,payee){
 
 
     rest.getPayee(url,session, user,function(message,session,user){
-     var   allFoods = JSON.parse(message);
+     var   allPayees = JSON.parse(message);
 
-        for(var i in allFoods) {
+        for(var i in allPayees) {
 
-            if (allFoods[i].payee === payee && allFoods[i].user === user) {
+            if (allPayees[i].payee === payee && allPayees[i].user === user) {
 
-                console.log(allFoods[i]);
+                console.log(allPayees[i]);
 
-                rest.deletePayee(url,session,user,payee, allFoods[i].id ,handlePayeeResponse)
+                rest.deletePayee(url,session,user,payee, allPayees[i].id ,handlePayeeResponse)
 
             }
         }
