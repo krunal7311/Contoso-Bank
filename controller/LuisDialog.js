@@ -1,5 +1,5 @@
 var builder = require('botbuilder');
-var getAddress=require("./getaddress");
+//var getAddress=require("./getaddress");
 var userdetails=require("./getUser");
 var getTransactions=require("./getTransactions")
 exports.startDialog = function (bot) {
@@ -9,7 +9,7 @@ exports.startDialog = function (bot) {
 
     bot.recognizer(recognizer);
 
-    bot.dialog('getAddress', [
+ /*   bot.dialog('getAddress', [
         function requestarea(session, args, next) {
             session.dialogData.args = args || {};   
             var areaEntity = builder.EntityRecognizer.findEntity(session.dialogData.args.intent.entities, 'area');
@@ -55,7 +55,7 @@ exports.startDialog = function (bot) {
         
     ]).triggerAction({
         matches: 'getAddress'
-    });
+    });/*
 
 //Get user account types 
      bot.dialog('getUser', [
