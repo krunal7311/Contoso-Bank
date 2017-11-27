@@ -58,29 +58,28 @@ exports.startDialog = function (bot) {
     });
 
 //Get user account types 
-     bot.dialog('getUser', [
-        function (session, args, next) {
-            session.dialogData.args = args || {};        
-            if (!session.conversationData["user"]) {
-                builder.Prompts.text(session, "Sure, Could I have your username please"); 
-                next();               
-            } else {
-                next(); // Skip if we already have this info.
-            }
-        },
-        function (session, results, next) {
-session.send(results);
-                if (results.response) {
-                    session.conversationData["user"] = results.response;
-                   // session.send("Retrieving your account information for %s", session.conversationData["user"] );                    
-                }
-
-                userdetails.displayUser(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
-            
+bot.dialog('GetUserAccount', [
+    function (session, args, next) {
+        session.dialogData.args = args || {};        
+        if (!session.conversationData["user"]) {
+            builder.Prompts.text(session, "Sure, Could I have your username please");                
+        } else {
+            next(); // Skip if we already have this info.
         }
-    ]).triggerAction({
-        matches: 'GetUserAccount'
-    });
+    },
+    function (session, results, next) {
+
+            if (results.response) {
+                session.conversationData["user"] = results.response;
+            }
+
+            session.send("Checking your account types...");
+            userdetails.displayUser(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
+        
+    }
+]).triggerAction({
+    matches: 'GetUserAccount'
+});
     
 //Get user transactions
 bot.dialog('getTransactions', [
