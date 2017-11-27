@@ -206,6 +206,7 @@ bot.dialog('deletePayee', [
             // Checks if the payee entity was found
             if (payeeEntity) {
             session.conversationData["payee"] = payeeEntity.entity;
+            session.send("deleting %s",  session.conversationData["payee"])
             next();            
                 //    session.send('Added new Payee:  \'%s\'', payeeEntity.entity);
             //    managePayees.addPayee(session, session.conversationData["user"], payeeEntity.entity); // <-- LINE WE WANT
