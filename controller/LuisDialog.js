@@ -99,7 +99,7 @@ bot.dialog('getTransactions', [
             }
 
             session.send("Retrieving your favourite foods %s", session.conversationData["user"]);
-          //  food.displayFavouriteFood(session, session.conversationData["username"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
+           getTransactions.displayTransactions(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
         
     }
 ]).triggerAction({
