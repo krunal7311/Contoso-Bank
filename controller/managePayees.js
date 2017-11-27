@@ -34,7 +34,7 @@ exports.addPayee = function addPayee(session, user, payee, accountnumber){
 };
 
 
-/*
+
 
 exports.deletePayee = function deletePayee(session,user,payee){
     var url  = 'http://contosotables.azurewebsites.net/tables/payees';
@@ -60,8 +60,8 @@ exports.deletePayee = function deletePayee(session,user,payee){
 
 };
 
-function handlePayeeResponse(body,session,username, favouritefood){
+function handlePayeeResponse(body,session,user, payee){
     console.log('Done');
 }
-*/
+
 

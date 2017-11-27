@@ -167,6 +167,61 @@ bot.dialog('addPayees', [
                 session.conversationData["payee"] = results.response;
            }
    //        session.send('Created new Payee:  \'%s\'', session.conversationData["payee"]);
+        //   managePayees.addPayee(session, session.conversationData["user"], session.conversationData["payee"]);
+           builder.Prompts.text(session,'Now enter the account number', session.conversationData["payee"]);           
+        },
+        function(session,results,next)
+        {
+            if (results.response) {
+                session.send('Adding account number...');                           
+                session.conversationData["accountnumber"] = results.response;
+           }
+           session.send('Created new payee:  %s with account number %s', session.conversationData["payee"], session.conversationData["accountnumber"] );
+           managePayees.addPayee(session,session.conversationData["user"], session.conversationData["payee"], session.conversationData["accountnumber"]);
+        }
+   // }
+   
+]).triggerAction({
+    matches: 'addPayees'
+});
+
+//Delete Payees
+bot.dialog('delete', [
+    function (session, args, next) {
+        session.dialogData.args = args || {};        
+        if (!session.conversationData["user"]) {
+            builder.Prompts.text(session, "Sure, Could I have your username please");                
+        } else {
+            next(); // Skip if we already have this info.
+        }
+    },
+    function (session, results, next) {
+       // if (!isAttachment(session)) {
+            if (results.response) {
+                session.conversationData["user"] = results.response;
+              //  session.send('Adding new payee for:  \'%s\'', session.conversationData["user"]);          
+           }
+            // Pulls out payee entity from the session if it exists
+            var payeeEntity = builder.EntityRecognizer.findEntity(session.dialogData.args.intent.entities, 'payee');
+
+            // Checks if the payee entity was found
+            if (payeeEntity) {
+            session.conversationData["payee"] = payeeEntity.entity;
+            next();            
+                //    session.send('Added new Payee:  \'%s\'', payeeEntity.entity);
+            //    managePayees.addPayee(session, session.conversationData["user"], payeeEntity.entity); // <-- LINE WE WANT
+            } else {
+                builder.Prompts.text(session,"Okay, what would be the payee name?");
+            }
+        },
+        function(session,results,next)
+        {
+            if (results.response) {
+                session.send('Creating new payee...');      
+
+                session.conversationData["payee"] = results.response;
+           }
+   //        session.send('Created new Payee:  \'%s\'', session.conversationData["payee"]);
            managePayees.addPayee(session, session.conversationData["user"], session.conversationData["payee"]);
            builder.Prompts.text(session,'Now enter the account number', session.conversationData["payee"]);           
         },
