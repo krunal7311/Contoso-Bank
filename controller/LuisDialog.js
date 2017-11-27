@@ -95,9 +95,9 @@ bot.dialog('getTransactions', [
     function (session, results) {
 
             if (results.response) {
-               var username = result.reponse;
-               session.endDialog("retireving transactions for",username);
-          //      getTransactions.displayTransactions(session, username); 
+                console.log(JSON.stringify(results))
+             //   session.conversationData["user"] = session.endDialogWithResult("retireving transactions for",results.response);
+               // getTransactions.displayTransactions(session, session.conversationData["user"]); 
             }
 
  //           getTransactions.displayTransactions(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
