@@ -83,7 +83,7 @@ session.send(results);
     });
     
 //Get user transactions
-bbot.dialog('getTransactions', [
+bot.dialog('getTransactions', [
     function (session, args, next) {
         session.dialogData.args = args || {};        
         if (!session.conversationData["user"]) {
