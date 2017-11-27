@@ -30,5 +30,5 @@ function handleTransactionResponse(message, session, user)
       // }
        
 }
-session.endDialog("Your spendings are : %s ", usernameReceived); 
+session.endDialog("Your spendings are : %s ", message); 
 }
