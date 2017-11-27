@@ -170,7 +170,7 @@ bot.dialog('addPayees', [
         function(session,results,next)
         {
             if (results.response) {
-                session.endSend('Adding account number...');                           
+                session.Send('Adding account number...');                           
                 session.conversationData["accountnumber"] = results.response;
            }
            session.send('Created new payee:  %s with account number %s', session.conversationData["payee"], session.conversationData["accountnumber"] );
