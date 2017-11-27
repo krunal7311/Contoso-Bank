@@ -87,7 +87,7 @@ bot.dialog('getTransactions', [
         session.dialogData.args = args || {};        
         if (!session.conversationData["user"]) {
             builder.Prompts.text(session, "Sure, Could I have your username please");  
-         //   session.endDialog("Retrieving your account information for %s", results.response);               
+            session.endDialog("Retrieving your account information for %s", results.response);               
         } else {
             next(); // Skip if we already have this info.
         }
@@ -98,8 +98,8 @@ bot.dialog('getTransactions', [
                 session.conversationData["user"] = results.response;
             }
 
-            session.endDialog("Retrieving your transactions");
-            getTransactions.displayTransactions(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
+           // session.endDialog("Retrieving your transactions");
+ //           getTransactions.displayTransactions(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
         
     }
 ]).triggerAction({
