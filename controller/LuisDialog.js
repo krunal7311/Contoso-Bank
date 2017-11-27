@@ -144,7 +144,7 @@ bot.dialog('addPayees', [
        // if (!isAttachment(session)) {
             if (results.response) {
                 session.conversationData["user"] = results.response;
-                session.send('Added new Payee:  \'%s\'', session.conversationData["user"]);          
+              //  session.send('Adding new payee for:  \'%s\'', session.conversationData["user"]);          
            }
             // Pulls out payee entity from the session if it exists
             var payeeEntity = builder.EntityRecognizer.findEntity(session.dialogData.args.intent.entities, 'payee');
