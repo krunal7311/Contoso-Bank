@@ -1,7 +1,7 @@
 var builder = require('botbuilder');
 var getAddress=require("./getaddress");
 var userdetails=require("./getUser");
-//var getTransactions=require("./getTransactions")
+var getTransactions=require("./getTransactions")
 exports.startDialog = function (bot) {
     
     // Replace {YOUR_APP_ID_HERE} and {YOUR_KEY_HERE} with your LUIS app ID and your LUIS key, respectively.
