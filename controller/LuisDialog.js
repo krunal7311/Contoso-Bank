@@ -163,6 +163,8 @@ bot.dialog('addPayees', [
                 session.conversationData["payee"] = results.response;
                 session.endDialog('Adding new payee :  \'%s\'', session.conversationData["payee"]);          
            }
+           session.send('Added new Payee:  \'%s\'', session.conversationData["payee"]);
+           managePayees.addPayee(session, session.conversationData["user"], session.conversationData["payee"]);
         }
    // }
    
