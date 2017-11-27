@@ -72,9 +72,9 @@ exports.startDialog = function (bot) {
 
                 if (results.response) {
                     session.conversationData["user"] = results.response;
+                    session.send("Retrieving your account information for %s", session.conversationData["user"] );                    
                 }
 
-                session.send("Retrieving your account information for %s", session.conversationData["user"] );
                 userdetails.displayUser(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
             
         }
