@@ -1,4 +1,5 @@
 var rest = require('../API/RestClient');
+var builder = require('botbuilder');
 
 
 exports.displayUser = function getUser(session, user){

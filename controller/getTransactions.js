@@ -10,7 +10,7 @@ exports.displayTransactions = function getTransactions(session, user){
 function handleTransactionResponse(message, session, user) 
 {
     var accountResponse = JSON.parse(message);
-    var allAccounts = ['1','2'];
+    var allAccounts = [];
     var allAmounts = [];
     for (var index in accountResponse) {
         var usernameReceived = accountResponse[index].user;
@@ -30,5 +30,5 @@ function handleTransactionResponse(message, session, user)
       // }
        
 }
-session.endDialog("Your spendings are : %s ", allAccounts); 
+session.endDialog("Your spendings are : %s ", usernameReceived); 
 }
