@@ -106,7 +106,7 @@ bot.dialog('getTransactions', [
     matches: 'getTransactions'
 });
 
-//Add Payees
+//Show Payees
 bot.dialog('displayPayee', [
     function (session, args, next) {
         session.dialogData.args = args || {};        
@@ -129,6 +129,40 @@ bot.dialog('displayPayee', [
 ]).triggerAction({
     matches: 'displayPayee'
 });
+
+//Add Payees
+bot.dialog('addPayees', [
+    function (session, args, next) {
+        session.dialogData.args = args || {};        
+        if (!session.conversationData["user"]) {
+            builder.Prompts.text(session, "Sure, Could I have your username please");                
+        } else {
+            next(); // Skip if we already have this info.
+        }
+    },
+    function (session, results, next) {
+        if (!isAttachment(session)) {
+            if (results.response) {
+                session.conversationData["username"] = results.response;
+            }
+            // Pulls out the food entity from the session if it exists
+            var payeeEntity = builder.EntityRecognizer.findEntity(session.dialogData.args.intent.entities, 'payee');
+
+            // Checks if the food entity was found
+            if (payeeEntity) {
+                session.send('Added new Payee:  \'%s\'', payeeEntity.entity);
+                managePayees.addPayee(session, session.conversationData["user"], payeeEntity.entity); // <-- LINE WE WANT
+            } else {
+                session.send("No payee identified!!!");
+            }
+        }
+    }
+   
+]).triggerAction({
+    matches: 'addPayees'
+});
+
+
 
 //Logout
 bot.dialog('logout', [

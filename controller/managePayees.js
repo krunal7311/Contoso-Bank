@@ -25,14 +25,16 @@ function handleGetPayeeResponse(message, session, user)
 }
 session.endDialog("You payees list: %s", allPayees);  
 }
-/*
-exports.addPayee = function addPayee(session, user, favouritefood){
+
+
+
+exports.addPayee = function addPayee(session, user, payee){
     var url = 'http://contosotables.azurewebsites.net/tables/payees';
     rest.addPayee(url, user, payee);
 };
 
 
-
+/*
 
 exports.deletePayee = function deletePayee(session,user,payee){
     var url  = 'http://contosotables.azurewebsites.net/tables/payees';
