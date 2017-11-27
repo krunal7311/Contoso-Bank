@@ -12,7 +12,7 @@ function handleAddressResponse(message, session, area)
     var allAddress = []; 
     for (var index in addressResponse) {
         var usernameReceived = addressResponse[index].area;
-        var address = addressResponse[index].Address;
+        var address = addressResponse[index].address;
      if (area.toLowerCase() === usernameReceived.toLowerCase()) {
             //Add a comma after all addresses unless last one
            if(addressResponse.length - 1) {
