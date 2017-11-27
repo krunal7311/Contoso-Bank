@@ -83,7 +83,7 @@ session.send(results);
     });
     
 //Get user transactions
-bot.dialog('getTransactions', [
+bbot.dialog('getTransactions', [
     function (session, args, next) {
         session.dialogData.args = args || {};        
         if (!session.conversationData["user"]) {
@@ -95,15 +95,12 @@ bot.dialog('getTransactions', [
     function (session, results, next) {
 
             if (results.response) {
-        //        session.conversationData.user = results.response;
-                console.log(JSON.stringify(results));
-                session.endDialogWithResult(results.response);
-         //     session.endDialog("Retrieving your transactions", results.response);
-                
-           }
+                session.conversationData["user"] = results.response;
+                session.send("Retrieving your transactions", results.response);                
+            }
 
-        //    session.endDialog("Retrieving your transactions", results.response);
-         //   getTransactions.displayTransactions(session, session.conversationData.user);  // <---- THIS LINE HERE IS WHAT WE NEED 
+            session.send("Retrieving your transactions", results.response);
+          //  getTransactions.displayTransactions(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
         
     }
 ]).triggerAction({
