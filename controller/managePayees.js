@@ -23,7 +23,7 @@ function handleGetPayeeResponse(message, session, user)
             }
        }
 }
-session.endDialog("You payees list: %s", allPayees);  
+session.endDialog("Your payees list: %s", allPayees);  
 }
 
 

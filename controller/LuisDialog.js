@@ -143,7 +143,7 @@ bot.dialog('addPayees', [
     function (session, results, next) {
         if (!isAttachment(session)) {
             if (results.response) {
-                session.conversationData["username"] = results.response;
+                session.conversationData["user"] = results.response;
             }
             // Pulls out the food entity from the session if it exists
             var payeeEntity = builder.EntityRecognizer.findEntity(session.dialogData.args.intent.entities, 'payee');
