@@ -320,10 +320,12 @@ bot.dialog('deletePayee', [
 //Exchange Rates
 bot.dialog('ExchangeRate', function(session, args) {
     var card = {
-        'contentType': 'application/vnd.microsoft.card.adaptive',
-        'content': {
-           
-        'body': []},
+        contentType: "application/vnd.microsoft.card.adaptive",
+        content: {
+            type: "AdaptiveCard",
+            body: [
+            
+        ]},
             "actions": [{
                 'type': 'Action.Submit',
                 'title': 'Submit'
