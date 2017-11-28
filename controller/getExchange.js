@@ -9,10 +9,6 @@ exports.displayConversions = function getExchangeRates(session,currency, base, c
 
 function displayConversions(message, session, base, conversion, currency) {
     var conversions = JSON.parse(message);
-session.send("getExchanger from %s ",conversions.base);
-session.send("getExchanger from %s ",conversions.conversion);
-session.send("getExchanger from %s ",conversions.currency);
-
     var card = {
         contentType: "application/vnd.microsoft.card.adaptive",
         content: {
@@ -305,6 +301,9 @@ session.send("getExchanger from %s ",conversions.currency);
     // var x = session.message.value.base;
 
     for (var symbolValue in jsonResponse) {
+        session.send("getExchanger from %s ",conversions.base);
+        session.send("getExchanger from %s ",conversions.conversion);
+        session.send("getExchanger from %s ",conversions.currency);
         var keyValue = jsonResponse[symbolValue]; 
         session.send("The value of 1 " + conversions.base + " is " + keyValue + " " + symbolValue);
     }
