@@ -73,7 +73,17 @@ exports.deletePayee = function deleteData(url,session, user ,payee, id, callback
 
 };
 
+exports.getAddress = function getAddress(url, session, area, callback){
+        request.get(url, {'headers':{'ZUMO-API-VERSION': '2.0.0'}}, function(err,res,body){
+            if(err){
+                console.log(err);
+            }else {
+                callback(body, session, area);
+            }
+        });
+    };
 
+    
 exports.getCurrencyData = function getData(url, session, callback) {
     
         request.get(url, function(err, res, message) {
@@ -84,4 +94,3 @@ exports.getCurrencyData = function getData(url, session, callback) {
             }
         });
     };
-

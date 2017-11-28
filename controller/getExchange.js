@@ -3,14 +3,18 @@ var builder = require('botbuilder');
 
 exports.displayConversions = function getExchangeRates(session, inputValue, base, conversion) {
     var url = 'https://api.fixer.io/latest?base=' + base + '&symbols=' + conversion;
-    session.send("Input Value: %s Base: %s , conversion: %s",inputValue, base, conversion);
+ //   session.send("Input Value: %s Base: %s , conversion: %s",inputValue, base, conversion);
     rest.getCurrencyData(url, session, displayConversions);
 }
 
 
 function displayConversions(message, session, inputValue, base, conversion) {
     var conversions = JSON.parse(message);
-
+    var a=[];
+    var b=conversions.base;
+    var c=[];
+ 
+    session.send("Input Value: %s Base: %s , conversion: %s",conversion, b, inputValue);    
     var card = {
         contentType: "application/vnd.microsoft.card.adaptive",
         content: {
