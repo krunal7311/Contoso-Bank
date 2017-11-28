@@ -26,7 +26,6 @@ function displayConversions(message, session, base, conversion) {
                     "id": "input1",
                     "placeholder": "Convert from",
                     "maxLength": 10,
-                    "Required": Yes
                 },
                 {
                     "type": "Input.ChoiceSet",
@@ -164,7 +163,6 @@ function displayConversions(message, session, base, conversion) {
                     "id": "input1",
                     "placeholder": "Convert to",
                     "maxLength": 10,
-                    "Required": Yes
                 },
               
                 {
