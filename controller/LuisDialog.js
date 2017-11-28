@@ -331,12 +331,12 @@ bot.dialog('ExchangeRate',[ function(session, args, next)  {
             } else {
                next();
             }
-        },
-           function (session,args){
-            session.dialogData.args = args || {};
-            var adaptiveCard = currencyConversion.displayConversions(session);
+        }//,
+    //       function (session,args){
+      //      session.dialogData.args = args || {};
+        //    var adaptiveCard = currencyConversion.displayConversions(session);
       
-        }
+    //    }
     ]).triggerAction({
             matches: 'ExchangeRate'
     });
