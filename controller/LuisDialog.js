@@ -597,6 +597,7 @@ bot.dialog('ExchangeRate', function(session, args) {
                     ]
                 }
         ]},
+        
             "actions": [{
                 'type': 'Action.Submit',
                 'title': 'Submit'
