@@ -335,8 +335,7 @@ bot.dialog('ExchangeRate',[ function(session, args, next)  {
            function (session,args){
             session.dialogData.args = args || {};
             var adaptiveCard = currencyConversion.displayConversions(session);
-            var msg = new builder.Message(session).addAttachment(adaptiveCard)
-            session.send(msg);
+      
         }
     ]).triggerAction({
             matches: 'ExchangeRate'
