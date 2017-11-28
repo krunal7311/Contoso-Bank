@@ -323,7 +323,8 @@ bot.dialog('ExchangeRate', function(session, args) {
             if (session.message && session.message.value) {
                 var base = session.message.value.base;
                 var conversion = session.message.value.conversion;
-                currencyConversion.displayConversions(session, base, conversion);
+                var currency = session.message.value.currency;
+                currencyConversion.displayConversions(session,currency, base, conversion);
             } else {
                 session.dialogData.args = args || {};
                 var adaptiveCard = currencyConversion.displayConversions(session);
