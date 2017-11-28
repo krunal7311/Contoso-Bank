@@ -69,8 +69,10 @@ bot.dialog('welcome', [
         }
     },
     function (session, results, next) {
-
+        if (!isAttachment(session)) {
+            
         session.send("Hi %s, I am your personal banking bot. Type 'help' if you need any assistance.",session.conversationData["user"] );
+        }
     }
 ]).triggerAction({
     matches: 'welcome'
