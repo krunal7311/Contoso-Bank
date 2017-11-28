@@ -16,13 +16,13 @@ function displayConversions(message, session, base, conversion, currency) {
             body: [{
                     "type": "TextBlock",
                     "text": "Currency Converter",
-                    "size": "large",
+                    "size": "large"
                 },
                 {
                     "type": "Input.Number",
                     "id": "currency",
                     "placeholder": "Currency",
-                    "maxLength": 10,
+                    "maxLength": 10
                 },
                 {
                     "type": "Input.ChoiceSet",
@@ -301,9 +301,6 @@ function displayConversions(message, session, base, conversion, currency) {
     // var x = session.message.value.base;
 
     for (var symbolValue in jsonResponse) {
-        session.send("getExchanger from %s ",conversions.base);
-        session.send("getExchanger from %s ",conversions.conversion);
-        session.send("getExchanger from %s ",conversions.currency);
         var keyValue = jsonResponse[symbolValue]; 
         session.send("The value of 1 " + conversions.base + " is " + keyValue + " " + symbolValue);
     }

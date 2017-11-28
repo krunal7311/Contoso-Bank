@@ -328,6 +328,10 @@ bot.dialog('ExchangeRate',[ function(session, args, next) {
                 session.send("to %s",conversion);
                 session.send("value %s",currency);
                 currencyConversion.displayConversions(session, base, conversion, currency);
+                for (var symbolValue in jsonResponse) {
+                    var keyValue = jsonResponse[symbolValue]; 
+                    session.send("The value of 1 " + conversions.base + " is " + keyValue + " " + symbolValue);
+                }
             } else {
                next();
             }
