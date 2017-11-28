@@ -3,7 +3,7 @@ var request = require('request'); //node module for http post requests
 exports.retreiveMessage = function (session){
 
     request.post({
-        url: 'https://southcentralus.api.cognitive.microsoft.com/customvision/v1.0/Prediction/92f05d0a-52fd-4d06-a93f-e3d90817b134/url?iterationId=ff6d87d9-b846-40b9-8892-c0a960cbb0e6',
+        url: 'https://southcentralus.api.cognitive.microsoft.com/customvision/v1.0/Prediction/cd3f8032-f5e1-428f-b127-f2b1f08366f3/url?iterationId=94915285-a6d4-4817-ac40-34ec804c9dc7',
         json: true,
         headers: {
             'Content-Type': 'application/json',
