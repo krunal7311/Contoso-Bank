@@ -25,7 +25,21 @@
 <!--[if IE 9]>
 	<link rel="stylesheet" type="text/css" href="css/ie9.css">
 <![endif]-->
+<script type="text/javascript">
+    function openChat() {
+        var frame = document.getElementById("chatframe");
+        frame.className = "";
+        var img = document.getElementById("chatbutton");
+        img.className = "hide";
+    }
 
+    function closeChat() {
+        var frame = document.getElementById("chatframe");
+        frame.className = "hide";
+        var img = document.getElementById("chatbutton");
+        img.className = "";
+    }
+</script>
 </head>
 
 <body>
@@ -112,17 +126,17 @@
             <h3>Eve is here to help.</h3>
             </div>
             <div id="chat">
-                    <img id="chatbutton" src="images/bot.png" onclick="openChat()"/>
+                    <img id="chatbutton" src="images/bot.png" onclick="openChat()" />
                     <div id="chatframe" class="hide">
-                
+                        
                             <iframe src='https://webchat.botframework.com/embed/kcontosobot?s=9qYBLhmDz9E.cwA.NwQ.z_VZuLat_QoZFDBrDMGQOj2We-pVRlG5ZP0g40PYobU'></iframe>
-                            <img src="images/bot.jpg" onclick="closeChat()" />
+                            <img src="images/close.png" onclick="closeChat()" />
+                            
                         </div>
                 </div>
             
         </div><!-- .inner -->
 	</div><!-- #contact -->
-	<!-- End Contact -->
     
     
 	<!-- Footer
