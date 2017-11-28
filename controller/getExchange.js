@@ -295,6 +295,7 @@ function displayConversions(message, session, base, conversion, currency) {
 
     session.send(new builder.Message(session).addAttachment(card));
     var response = JSON.parse(message);
+    session.send(response);
     var jsonResponse = response.rates;
 
     //var conversionCurrency = Object.keys(conversions.rates)[0];
