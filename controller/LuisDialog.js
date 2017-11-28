@@ -619,8 +619,10 @@ bot.dialog('ExchangeRate',[ function(session, args, next)  {
                     }]
                 }
             }    
-            var msg = new builder.Message(session).addAttachment(adaptiveCard)
-            session.send(msg);    
+         //   var msg = new builder.Message(session).addAttachment(adaptiveCard)
+          //  session.send(msg);
+            session.send(new builder.Message(session).addAttachment(card));
+            
         }
         
     ]).triggerAction({
