@@ -21,7 +21,7 @@ function displayConversions(message, session, currency, base, conversion) {
                 },
                 {
                     "type": "Input.Number",
-                    "id": "value",
+                    "id": "currency",
                     "placeholder": "Currency",
                     "maxLength": 10,
                 },
