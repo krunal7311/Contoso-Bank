@@ -618,13 +618,15 @@ bot.dialog('ExchangeRate',[ function(session, args, next)  {
                         "title": "Submit"
                     }]
                 }
-            }        
+            }    
+            var msg = new builder.Message(session).addAttachment(adaptiveCard)
+            session.send(msg);    
         }
+        
     ]).triggerAction({
             matches: 'ExchangeRate'
     });
-    var msg = new builder.Message(session).addAttachment(adaptiveCard)
-    session.send(msg);
+
 
 
 }
