@@ -156,9 +156,16 @@ function displayConversions(message, session, base, conversion) {
                         }
                     ]
                 },
+
                 {
-                    "type": "TextBlock",
+                    "type": "",
                     "text": "Convert to:"
+                },
+                {
+                    "type": "Input.Text",
+                    "id": "input1",
+                    "placeholder": "enter comment",
+                    "maxLength": 10
                 },
                 {
                     "type": "Input.ChoiceSet",
