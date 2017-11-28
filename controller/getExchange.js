@@ -14,7 +14,7 @@ function displayConversions(message, session, inputValue, base, conversion) {
     var b=conversions.base;
     var c=[];
  
-    session.send("Input Value: %s Base: %s , conversion: %s",conversion, b, inputValue);    
+  //  session.send("Input Value: %s Base: %s , conversion: %s",conversion, b, inputValue);    
     var card = {
         contentType: "application/vnd.microsoft.card.adaptive",
         content: {
