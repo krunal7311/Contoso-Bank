@@ -299,8 +299,8 @@ function displayConversions(message, session, currency, base, conversion) {
     var jsonResponse = response.rates;
     //var conversionCurrency = Object.keys(conversions.rates)[0];
     // var x = session.message.value.base;
-session.send("Testing currency in getExchange %s", currency);
     for (var symbolValue in jsonResponse) {
+        session.send("Testing currency in getExchange %s", currency);        
         var keyValue = jsonResponse[symbolValue]; 
         session.send("The value of 1 " + conversions.base + " is " + keyValue + " " + symbolValue);
     }
