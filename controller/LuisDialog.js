@@ -318,7 +318,7 @@ bot.dialog('deletePayee', [
 
 
 //Exchange Rates
-bot.dialog('ExchangeRate',[ function(session, args) {
+bot.dialog('ExchangeRate',[ function(session, args, next) {
     
             if (session.message && session.message.value) {
                 var base = session.message.value.base;
