@@ -10,8 +10,6 @@ exports.displayConversions = function getExchangeRates(session,currency, base, c
 function displayConversions(message, session, currency, base, conversion) {
     var conversions = JSON.parse(message);
 
-
-
     var card = {
         contentType: "application/vnd.microsoft.card.adaptive",
         content: {
@@ -23,7 +21,7 @@ function displayConversions(message, session, currency, base, conversion) {
                 },
                 {
                     "type": "Input.Number",
-                    "id": "value",
+                    "id": "currency",
                     "placeholder": "Currency",
                     "maxLength": 10,
                 },
@@ -305,9 +303,11 @@ function displayConversions(message, session, currency, base, conversion) {
 
     for (var symbolValue in jsonResponse) {
         var keyValue = jsonResponse[symbolValue];
-        session.send("This is the test %s",response.conversion);
-        session.send("This is the test 2" + response.conversion);
-        
+        session.send("This is the test %s",response.currency.value);
+        session.send("This is the test 2" + response.currency);
+      
+
+
         session.send("The value of 1 " + conversions.base + " is " + keyValue + " " + symbolValue);
     }
 
