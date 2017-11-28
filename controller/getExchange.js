@@ -21,7 +21,7 @@ function displayConversions(message, session, currency, base, conversion) {
                 },
                 {
                     "type": "Input.Number",
-                    "id": "currency",
+                    "id": "value",
                     "placeholder": "Currency",
                     "maxLength": 10,
                 },
@@ -303,11 +303,10 @@ function displayConversions(message, session, currency, base, conversion) {
 
     for (var symbolValue in jsonResponse) {
         var keyValue = jsonResponse[symbolValue];
-        session.send("This is the test %s",response.currency.value);
-        session.send("This is the test 2" + response.currency);
-      
-
-
+        session.send("This is the test %s ",response);
+        session.send("This is the test %s ",jsonResponse);
+        
+        
         session.send("The value of 1 " + conversions.base + " is " + keyValue + " " + symbolValue);
     }
 
