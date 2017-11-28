@@ -18,9 +18,8 @@ function displayConversions(message, session, base, conversion) {
             type: "AdaptiveCard",
             body: [{
                     "type": "TextBlock",
-                    "text": "Adaptive Card design session",
+                    "text": "Currency Converter",
                     "size": "large",
-                    "weight": "bolder"
                 },
                 {
                     "type": "TextBlock",
@@ -164,7 +163,6 @@ function displayConversions(message, session, base, conversion) {
                 {
                     "type": "Input.ChoiceSet",
                     "id": "conversion",
-                    //"title": "Convert from",
                     "style": "compact",
                     "choices": [{
                             "title": "AUD",

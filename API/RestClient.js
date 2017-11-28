@@ -11,17 +11,6 @@ exports.getAccount = function getUserAccount(url, session, user, callback){
 };
 
 
-exports.getCurrencyData = function getData(url, session, callback) {
-    
-        request.get(url, function(err, res, message) {
-            if (err) {
-                console.log(err);
-            } else {
-                callback(message, session);
-            }
-        });
-    };
-
 
 exports.getPayee = function getData(url, session, user, callback){
     request.get(url, {'headers':{'ZUMO-API-VERSION': '2.0.0'}}, function handleGetResponse(err,res,body){
@@ -83,3 +72,15 @@ exports.deletePayee = function deleteData(url,session, user ,payee, id, callback
     })
 
 };
+
+
+exports.getCurrencyData = function getData(url, session, callback) {
+    
+        request.get(url, function(err, res, message) {
+            if (err) {
+                console.log(err);
+            } else {
+                callback(message, session);
+            }
+        });
+    };

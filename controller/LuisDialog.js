@@ -11,6 +11,79 @@ exports.startDialog = function (bot) {
 
     bot.recognizer(recognizer);
 
+
+
+
+
+//Help
+bot.dialog('help', [
+    function (session, args) {
+        var endOfLine = require('os').EOL;              
+            session.endDialog("Here is what I can do: "+endOfLine+'\nType something like:'+endOfLine+'\n"My accounts" to get your account information'+endOfLine+'\n"My transactions" to get your transactions'+endOfLine+'\n"Branches near Glenfield/ me" to get information about the closest branch'+endOfLine+'\n"Logout" to log off');                        
+    },
+   
+]).triggerAction({
+    matches: 'help'
+});
+
+//User exits
+bot.dialog('bye', [
+    function (session, args, next) {
+        session.dialogData.args = args || {};        
+        if (session.conversationData["user"]) { //See if there is any active login session
+            session.endConversation("You have been logged out. Thanks, have a great day!");                
+        } else {
+            next(); 
+        }
+    },
+    function (session, results, next) {
+
+        session.endDialog('Thank you, Have a great day!');
+    }
+]).triggerAction({
+    matches: 'bye'
+});
+
+//User enters
+bot.dialog('welcome', [
+    function (session, args, next) {
+        session.dialogData.args = args || {};        
+        if (!session.conversationData["user"]) { //See if there is any active login session
+            session.send("Hi, I am your personal banking bot. Type 'help' if you need any assistance.");                
+        } else {
+            next(); 
+        }
+    },
+    function (session, results, next) {
+
+        session.send("Hi %s, I am your personal banking bot. Type 'help' if you need any assistance.",session.conversationData["user"] );
+    }
+]).triggerAction({
+    matches: 'welcome'
+});
+
+
+
+//Logout
+bot.dialog('logout', [
+    function (session, args, next) {
+        session.dialogData.args = args || {};        
+        if (!session.conversationData["user"]) { //See if there is any active login session
+            session.endDialog("You are not logged in currently.");                
+        } else {
+            next(); 
+        }
+    },
+    function (session, results, next) {
+              delete session.conversationData["user"]; //delete session for the user
+            session.endDialog("You have been logged out");
+        
+    }
+]).triggerAction({
+    matches: 'logout'
+});
+
+
     bot.dialog('getAddress', [
         function requestarea(session, args, next) {
             session.dialogData.args = args || {};   
@@ -243,6 +316,8 @@ bot.dialog('deletePayee', [
     matches: 'deletePayee'
 });
 
+
+//Exchange Rates
 bot.dialog('ExchangeRate', function(session, args) {
     
             if (session.message && session.message.value) {
@@ -251,7 +326,7 @@ bot.dialog('ExchangeRate', function(session, args) {
                 currencyConversion.displayConversions(session, base, conversion);
             } else {
                 session.dialogData.args = args || {};
-                var adaptiveCard = currencyConversion.displayConversions(session);
+              //  var adaptiveCard = currencyConversion.displayConversions(session);
                 var msg = new builder.Message(session).addAttachment(adaptiveCard)
                 session.send(msg);
             }
@@ -261,71 +336,5 @@ bot.dialog('ExchangeRate', function(session, args) {
     });
     
 
-
-//Logout
-bot.dialog('logout', [
-    function (session, args, next) {
-        session.dialogData.args = args || {};        
-        if (!session.conversationData["user"]) { //See if there is any active login session
-            session.endDialog("You are not logged in currently.");                
-        } else {
-            next(); 
-        }
-    },
-    function (session, results, next) {
-              delete session.conversationData["user"]; //delete session for the user
-            session.endDialog("You have been logged out");
-        
-    }
-]).triggerAction({
-    matches: 'logout'
-});
-
-//Help
-bot.dialog('help', [
-    function (session, args) {
-        var endOfLine = require('os').EOL;              
-            session.endDialog("Here is what I can do: "+endOfLine+'\nType something like:'+endOfLine+'\n"My accounts" to get your account information'+endOfLine+'\n"My transactions" to get your transactions'+endOfLine+'\n"Branches near Glenfield/ me" to get information about the closest branch'+endOfLine+'\n"Logout" to log off');                        
-    },
-   
-]).triggerAction({
-    matches: 'help'
-});
-
-//User exits
-bot.dialog('bye', [
-    function (session, args, next) {
-        session.dialogData.args = args || {};        
-        if (session.conversationData["user"]) { //See if there is any active login session
-            session.endConversation("You have been logged out. Thanks, have a great day!");                
-        } else {
-            next(); 
-        }
-    },
-    function (session, results, next) {
-
-        session.endDialog('Thank you, Have a great day!');
-    }
-]).triggerAction({
-    matches: 'bye'
-});
-
-//User enters
-bot.dialog('welcome', [
-    function (session, args, next) {
-        session.dialogData.args = args || {};        
-        if (!session.conversationData["user"]) { //See if there is any active login session
-            session.send("Hi, I am your personal banking bot. Type 'help' if you need any assistance.");                
-        } else {
-            next(); 
-        }
-    },
-    function (session, results, next) {
-
-        session.send("Hi %s, I am your personal banking bot. Type 'help' if you need any assistance.",session.conversationData["user"] );
-    }
-]).triggerAction({
-    matches: 'welcome'
-});
 
 }
