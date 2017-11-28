@@ -7,8 +7,9 @@ exports.displayConversions = function getExchangeRates(session,currency, base, c
 }
 
 
-function displayConversions(message, session, base, conversion, currency) {
+function displayConversions(message, session, currency, base, conversion) {
     var conversions = JSON.parse(message);
+
     var card = {
         contentType: "application/vnd.microsoft.card.adaptive",
         content: {
@@ -16,13 +17,13 @@ function displayConversions(message, session, base, conversion, currency) {
             body: [{
                     "type": "TextBlock",
                     "text": "Currency Converter",
-                    "size": "large"
+                    "size": "large",
                 },
                 {
                     "type": "Input.Number",
                     "id": "currency",
                     "placeholder": "Currency",
-                    "maxLength": 10
+                    "maxLength": 10,
                 },
                 {
                     "type": "Input.ChoiceSet",
@@ -296,7 +297,6 @@ function displayConversions(message, session, base, conversion, currency) {
     session.send(new builder.Message(session).addAttachment(card));
     var response = JSON.parse(message);
     var jsonResponse = response.rates;
-
     //var conversionCurrency = Object.keys(conversions.rates)[0];
     // var x = session.message.value.base;
 

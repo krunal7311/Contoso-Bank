@@ -326,7 +326,7 @@ bot.dialog('ExchangeRate',[ function(session, args, next)  {
                 session.send("from %s",base);
                 session.send("to %s",conversion);
                 session.send("value %s",currency);
-                currencyConversion.displayConversions(session, base, conversion, currency);
+                currencyConversion.displayConversions(session, currency, base, conversion);
               
             } else {
                next();
