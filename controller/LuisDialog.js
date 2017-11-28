@@ -324,7 +324,278 @@ bot.dialog('ExchangeRate', function(session, args) {
         content: {
             type: "AdaptiveCard",
             body: [
-            
+                {
+                    "type": "TextBlock",
+                    "text": "Currency Converter",
+                    "size": "large",
+                },
+                {
+                    "type": "Input.Number",
+                    "id": "currency",
+                    "placeholder": "Currency",
+                    "maxLength": 10,
+                },
+                {
+                    "type": "Input.ChoiceSet",
+                    "id": "base",
+                    //"title": "Convert from",
+                    "style": "compact",
+                    "choices": [{
+                            "title": "AUD",
+                            "value": "AUD"
+                        },
+                        {
+                            "title": "BGN",
+                            "value": "BGN"
+                        },
+                        {
+                            "title": "BRL",
+                            "value": "BRL"
+                        },
+                        {
+                            "title": "CAD",
+                            "value": "CAD"
+                        },
+                        {
+                            "title": "CHF",
+                            "value": "CHF"
+                        },
+                        {
+                            "title": "CNY",
+                            "value": "CNY"
+                        },
+                        {
+                            "title": "CZK",
+                            "value": "CZK"
+                        },
+                        {
+                            "title": "DKK",
+                            "value": "DKK"
+                        },
+                        {
+                            "title": "GBP",
+                            "value": "GBP"
+                        },
+                        {
+                            "title": "HKD",
+                            "value": "HKD"
+                        },
+                        {
+                            "title": "HRK",
+                            "value": "HRK"
+                        },
+                        {
+                            "title": "HUF",
+                            "value": "HUF"
+                        },
+                        {
+                            "title": "IDR",
+                            "value": "IDR"
+                        },
+                        {
+                            "title": "ILS",
+                            "value": "ILS"
+                        },
+                        {
+                            "title": "INR",
+                            "value": "INR"
+                        },
+                        {
+                            "title": "JPY",
+                            "value": "JPY"
+                        },
+                        {
+                            "title": "KRW",
+                            "value": "KRW"
+                        },
+                        {
+                            "title": "MXN",
+                            "value": "MXN"
+                        },
+                        {
+                            "title": "MYR",
+                            "value": "MYR"
+                        },
+                        {
+                            "title": "NOK",
+                            "value": "NOK"
+                        },
+                        {
+                            "title": "NZD",
+                            "value": "NZD"
+                        },
+                        {
+                            "title": "PHP",
+                            "value": "PHP"
+                        },
+                        {
+                            "title": "PLN",
+                            "value": "PLN"
+                        },
+                        {
+                            "title": "RON",
+                            "value": "RON"
+                        },
+                        {
+                            "title": "RUB",
+                            "value": "RUB"
+                        },
+                        {
+                            "title": "SEK",
+                            "value": "SEK"
+                        },
+                        {
+                            "title": "SGD",
+                            "value": "SGD"
+                        },
+                        {
+                            "title": "THB",
+                            "value": "THB"
+                        },
+                        {
+                            "title": "TRY",
+                            "value": "TRY"
+                        },
+                        {
+                            "title": "ZAR",
+                            "value": "ZAR"
+                        },
+                        {
+                            "title": "EUR",
+                            "value": "EUR"
+                        }
+                    ]
+                },
+                {
+                    "type": "Input.ChoiceSet",
+                    "id": "conversion",
+                    "style": "compact",
+                    "choices": [{
+                            "title": "AUD",
+                            "value": "AUD"
+                        },
+                        {
+                            "title": "BGN",
+                            "value": "BGN"
+                        },
+                        {
+                            "title": "BRL",
+                            "value": "BRL"
+                        },
+                        {
+                            "title": "CAD",
+                            "value": "CAD"
+                        },
+                        {
+                            "title": "CHF",
+                            "value": "CHF"
+                        },
+                        {
+                            "title": "CNY",
+                            "value": "CNY"
+                        },
+                        {
+                            "title": "CZK",
+                            "value": "CZK"
+                        },
+                        {
+                            "title": "DKK",
+                            "value": "DKK"
+                        },
+                        {
+                            "title": "GBP",
+                            "value": "GBP"
+                        },
+                        {
+                            "title": "HKD",
+                            "value": "HKD"
+                        },
+                        {
+                            "title": "HRK",
+                            "value": "HRK"
+                        },
+                        {
+                            "title": "HUF",
+                            "value": "HUF"
+                        },
+                        {
+                            "title": "IDR",
+                            "value": "IDR"
+                        },
+                        {
+                            "title": "ILS",
+                            "value": "ILS"
+                        },
+                        {
+                            "title": "INR",
+                            "value": "INR"
+                        },
+                        {
+                            "title": "JPY",
+                            "value": "JPY"
+                        },
+                        {
+                            "title": "KRW",
+                            "value": "KRW"
+                        },
+                        {
+                            "title": "MXN",
+                            "value": "MXN"
+                        },
+                        {
+                            "title": "MYR",
+                            "value": "MYR"
+                        },
+                        {
+                            "title": "NOK",
+                            "value": "NOK"
+                        },
+                        {
+                            "title": "NZD",
+                            "value": "NZD"
+                        },
+                        {
+                            "title": "PHP",
+                            "value": "PHP"
+                        },
+                        {
+                            "title": "PLN",
+                            "value": "PLN"
+                        },
+                        {
+                            "title": "RON",
+                            "value": "RON"
+                        },
+                        {
+                            "title": "RUB",
+                            "value": "RUB"
+                        },
+                        {
+                            "title": "SEK",
+                            "value": "SEK"
+                        },
+                        {
+                            "title": "SGD",
+                            "value": "SGD"
+                        },
+                        {
+                            "title": "THB",
+                            "value": "THB"
+                        },
+                        {
+                            "title": "TRY",
+                            "value": "TRY"
+                        },
+                        {
+                            "title": "ZAR",
+                            "value": "ZAR"
+                        },
+                        {
+                            "title": "EUR",
+                            "value": "EUR"
+                        }
+                    ]
+                }
         ]},
             "actions": [{
                 'type': 'Action.Submit',
@@ -336,7 +607,7 @@ bot.dialog('ExchangeRate', function(session, args) {
     .addAttachment(card);
 session.send(msg);
 
-     /*       if (session.message && session.message.value) {
+            if (session.message && session.message.value) {
                 var base = session.message.value.base;
                 var conversion = session.message.value.conversion;
                 var currency = session.message.value.currency;
@@ -344,7 +615,7 @@ session.send(msg);
                 session.send("to %s",conversion);
                 session.send("value %s",currency);
                 currencyConversion.displayConversions(session,currency, base, conversion);
-            } else {
+            } /*else {
                 session.dialogData.args = args || {};
                 var adaptiveCard = currencyConversion.displayConversions(session);
                 var msg = new builder.Message(session).addAttachment(adaptiveCard)
