@@ -22,8 +22,11 @@ function displayConversions(message, session, base, conversion) {
                     "size": "large",
                 },
                 {
-                    "type": "TextBlock",
-                    "text": "Convert from:"
+                    "type": "Input.Number",
+                    "id": "input1",
+                    "placeholder": "Convert from",
+                    "maxLength": 10,
+                    "Required": Yes
                 },
                 {
                     "type": "Input.ChoiceSet",
@@ -156,17 +159,14 @@ function displayConversions(message, session, base, conversion) {
                         }
                     ]
                 },
-
                 {
-                    "type": "",
-                    "text": "Convert to:"
-                },
-                {
-                    "type": "Input.Text",
+                    "type": "Input.Number",
                     "id": "input1",
-                    "placeholder": "enter comment",
-                    "maxLength": 10
+                    "placeholder": "Convert to",
+                    "maxLength": 10,
+                    "Required": Yes
                 },
+              
                 {
                     "type": "Input.ChoiceSet",
                     "id": "conversion",
