@@ -296,7 +296,7 @@ function displayConversions(message, session, currency, base, conversion) {
         }
     }
 
-  //  session.send(new builder.Message(session).addAttachment(card));
+    session.send(new builder.Message(session).addAttachment(card));
 
     var response = JSON.parse(message);
     var jsonResponse = response.rates;
