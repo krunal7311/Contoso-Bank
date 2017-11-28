@@ -7,7 +7,7 @@ exports.displayConversions = function getExchangeRates(session, base, conversion
 }
 
 
-function displayConversions(message, session, base, conversion) {
+function displayConversions(message, session,value, base, conversion) {
     var conversions = JSON.parse(message);
 
 
@@ -23,8 +23,8 @@ function displayConversions(message, session, base, conversion) {
                 },
                 {
                     "type": "Input.Number",
-                    "id": "input1",
-                    "placeholder": "Convert from",
+                    "id": "value",
+                    "placeholder": "Currency",
                     "maxLength": 10,
                 },
                 {
@@ -158,13 +158,6 @@ function displayConversions(message, session, base, conversion) {
                         }
                     ]
                 },
-                {
-                    "type": "Input.Number",
-                    "id": "input1",
-                    "placeholder": "Convert to",
-                    "maxLength": 10,
-                },
-              
                 {
                     "type": "Input.ChoiceSet",
                     "id": "conversion",
@@ -307,15 +300,13 @@ function displayConversions(message, session, base, conversion) {
 
     var response = JSON.parse(message);
     var jsonResponse = response.rates;
-
     //var conversionCurrency = Object.keys(conversions.rates)[0];
     // var x = session.message.value.base;
 
     for (var symbolValue in jsonResponse) {
         var keyValue = jsonResponse[symbolValue];
+        session.send(conversions.conversion);
         session.send("The value of 1 " + conversions.base + " is " + keyValue + " " + symbolValue);
     }
-
-
 
 }
