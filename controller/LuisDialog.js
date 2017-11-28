@@ -383,11 +383,11 @@ bot.dialog('ExchangeRate',[ function(session, args, next)  {
           if (session.message && session.message.value) {
                 var base = session.message.value.base;
                 var conversion = session.message.value.conversion;
-                var currency = session.message.value.currency;
+                var inputValue = session.message.value.inputValue;
                 session.send("from %s",base);
                 session.send("to %s",conversion);
-                session.send("value %s",currency);
-                currencyConversion.displayConversions(session, currency, base, conversion);
+                session.send("value %s",inputValue);
+                currencyConversion.displayConversions(session, inputValue, base, conversion);
               
             } else {
                next();

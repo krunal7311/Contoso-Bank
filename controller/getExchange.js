@@ -1,14 +1,14 @@
 var rest = require('../API/RestClient');
 var builder = require('botbuilder');
 
-exports.displayConversions = function getExchangeRates(session,currency, base, conversion) {
+exports.displayConversions = function getExchangeRates(session, inputValue, base, conversion) {
     var url = 'https://api.fixer.io/latest?base=' + base + '&symbols=' + conversion;
-    session.send(url);
+    session.send("Input Value: %s Base: %s , conversion: %s");
     rest.getCurrencyData(url, session, displayConversions);
 }
 
 
-function displayConversions(message, session, currency, base, conversion) {
+function displayConversions(message, session, inputValue, base, conversion) {
     var conversions = JSON.parse(message);
 
     var card = {
@@ -21,8 +21,8 @@ function displayConversions(message, session, currency, base, conversion) {
                     "size": "large",
                 },
                 {
-                    "type": "Input.Number",
-                    "id": "currency",
+                    "type": "Input.Text",
+                    "id": "inputValue",
                     "placeholder": "Currency",
                     "maxLength": 10,
                 },
