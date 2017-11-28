@@ -4,6 +4,7 @@ var userdetails=require("./getUser");
 var getTransactions=require("./getTransactions")
 var managePayees=require("./managePayees")
 var currencyConversion = require('./getExchange');
+var customVision = require('./CustomVision');
 exports.startDialog = function (bot) {
     
     // Replace {YOUR_APP_ID_HERE} and {YOUR_KEY_HERE} with your LUIS app ID and your LUIS key, respectively.
@@ -12,15 +13,29 @@ exports.startDialog = function (bot) {
     bot.recognizer(recognizer);
 
 
+    function isAttachment(session) { 
+        var msg = session.message.text;
+        if ((session.message.attachments && session.message.attachments.length > 0) || msg.includes("http")) {
+            //call custom vision
+            customVision.retreiveMessage(session);
+    
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
 
 
 //Help
 bot.dialog('help', [
     function (session, args) {
+        if (!isAttachment(session)) {
+            
         var endOfLine = require('os').EOL;              
             session.endDialog("Here is what I can do: "+endOfLine+'\nType something like:'+endOfLine+'\n"My accounts" to get your account information'+endOfLine+'\n"My transactions" to get your transactions'+endOfLine+'\n"Branches near Glenfield/ me" to get information about the closest branch'+endOfLine+'\n"Logout" to log off');                        
-    },
+    }}
    
 ]).triggerAction({
     matches: 'help'
@@ -29,16 +44,19 @@ bot.dialog('help', [
 //User exits
 bot.dialog('bye', [
     function (session, args, next) {
+        if (!isAttachment(session)) {
+            
         session.dialogData.args = args || {};        
         if (session.conversationData["user"]) { //See if there is any active login session
             session.endConversation("You have been logged out. Thanks, have a great day!");                
         } else {
             next(); 
         }
-    },
+    }},
     function (session, results, next) {
-
+        if (!isAttachment(session)) {            
         session.endDialog('Thank you, Have a great day!');
+        }
     }
 ]).triggerAction({
     matches: 'bye'
@@ -46,18 +64,26 @@ bot.dialog('bye', [
 
 //User enters
 bot.dialog('welcome', [
+    
     function (session, args, next) {
-        session.dialogData.args = args || {};        
+        if (!isAttachment(session)) {
+            
+        session.dialogData.args = args || {};   
+             
         if (!session.conversationData["user"]) { //See if there is any active login session
             session.send("Hi, I am your personal banking bot. Type 'help' if you need any assistance.");                
         } else {
             next(); 
         }
+    }
     },
     function (session, results, next) {
-
+        if (!isAttachment(session)) {
+            
         session.send("Hi %s, I am your personal banking bot. Type 'help' if you need any assistance.",session.conversationData["user"] );
+        }   
     }
+    
 ]).triggerAction({
     matches: 'welcome'
 });
@@ -66,19 +92,25 @@ bot.dialog('welcome', [
 
 //Logout
 bot.dialog('logout', [
+       
     function (session, args, next) {
+        if (!isAttachment(session)) {
         session.dialogData.args = args || {};        
         if (!session.conversationData["user"]) { //See if there is any active login session
             session.endDialog("You are not logged in currently.");                
         } else {
             next(); 
         }
+    }
     },
     function (session, results, next) {
+        if (!isAttachment(session)) {
+            
               delete session.conversationData["user"]; //delete session for the user
             session.endDialog("You have been logged out");
         
     }
+}
 ]).triggerAction({
     matches: 'logout'
 });
@@ -86,6 +118,7 @@ bot.dialog('logout', [
 
     bot.dialog('getAddress', [
         function requestarea(session, args, next) {
+            if (!isAttachment(session)) {
             session.dialogData.args = args || {};   
             var areaEntity = builder.EntityRecognizer.findEntity(session.dialogData.args.intent.entities, 'area');
        //     if (areaEntity) {
@@ -102,10 +135,11 @@ bot.dialog('logout', [
                 } else {
                     next(); // Skip if we already have this info.
                }     
-  //  }
+    }
         },
 
         function (session, results, next) {
+            if (!isAttachment(session)) {                
             var usearea=results.response;
             var location={};
             if (results.response) {
@@ -127,7 +161,7 @@ bot.dialog('logout', [
          getAddress.displayAddress(session, location); 
          delete session.conversationData["area"];
          }
-        
+        }
     ]).triggerAction({
         matches: 'getAddress'
     });
@@ -135,22 +169,25 @@ bot.dialog('logout', [
 //Get user account types 
 bot.dialog('GetUserAccount', [
     function (session, args, next) {
+        if (!isAttachment(session)) {
         session.dialogData.args = args || {};        
         if (!session.conversationData["user"]) {
             builder.Prompts.text(session, "Sure, Could I have your username please");                
         } else {
             next(); // Skip if we already have this info.
         }
+    }
     },
     function (session, results, next) {
-
+        if (!isAttachment(session)) {
+            
             if (results.response) {
                 session.conversationData["user"] = results.response;
             }
 
             session.send("Checking your account types...");
             userdetails.displayUser(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
-        
+        }
     }
 ]).triggerAction({
     matches: 'GetUserAccount'
@@ -159,22 +196,25 @@ bot.dialog('GetUserAccount', [
 //Get user transactions
 bot.dialog('getTransactions', [
     function (session, args, next) {
+        if (!isAttachment(session)) {
         session.dialogData.args = args || {};        
         if (!session.conversationData["user"]) {
             builder.Prompts.text(session, "Sure, Could I have your username please");                
         } else {
             next(); // Skip if we already have this info.
         }
+    }
     },
     function (session, results, next) {
-
+        if (!isAttachment(session)) {
+            
             if (results.response) {
                 session.conversationData["user"] = results.response;
             }
 
             session.send("Retrieving your transactions");
             getTransactions.displayTransactions(session, session.conversationData["user"]);  // <---- THIS LINE HERE IS WHAT WE NEED 
-        
+        }
     }
 ]).triggerAction({
     matches: 'getTransactions'
@@ -183,15 +223,18 @@ bot.dialog('getTransactions', [
 //Show Payees
 bot.dialog('displayPayee', [
     function (session, args, next) {
+        if (!isAttachment(session)) {
         session.dialogData.args = args || {};        
         if (!session.conversationData["user"]) {
             builder.Prompts.text(session, "Sure, Could I have your username please");                
         } else {
             next(); // Skip if we already have this info.
         }
+    }
     },
     function (session, results, next) {
-
+        if (!isAttachment(session)) {
+            
             if (results.response) {
                 session.conversationData["user"] = results.response;
             }
@@ -200,6 +243,7 @@ bot.dialog('displayPayee', [
             managePayees.displayPayees(session, session.conversationData["user"]);   // <---- THIS LINE HERE IS WHAT WE NEED 
         
     }
+}
 ]).triggerAction({
     matches: 'displayPayee'
 });
@@ -207,15 +251,17 @@ bot.dialog('displayPayee', [
 //Add Payees
 bot.dialog('addPayees', [
     function (session, args, next) {
+        if (!isAttachment(session)) {
         session.dialogData.args = args || {};        
         if (!session.conversationData["user"]) {
             builder.Prompts.text(session, "Sure, Could I have your username please");                
         } else {
             next(); // Skip if we already have this info.
         }
+    }
     },
     function (session, results, next) {
-       // if (!isAttachment(session)) {
+        if (!isAttachment(session)) {
             if (results.response) {
                 session.conversationData["user"] = results.response;
               //  session.send('Adding new payee for:  \'%s\'', session.conversationData["user"]);          
@@ -232,9 +278,12 @@ bot.dialog('addPayees', [
             } else {
                 builder.Prompts.text(session,"Okay, what would be the payee name?");
             }
+        }
         },
         function(session,results,next)
         {
+            if (!isAttachment(session)) {
+                
             if (results.response) {
                 session.send('Creating new payee...');      
 
@@ -242,15 +291,19 @@ bot.dialog('addPayees', [
            }
    
            builder.Prompts.text(session,'Now enter the payees account number', session.conversationData["payee"]);           
+        }
         },
         function(session,results,next)
         {
+            if (!isAttachment(session)) {
+                
             if (results.response) {
                 session.send('Adding account number...');                           
                 session.conversationData["accountnumber"] = results.response;
            }
            session.send('Created new payee:  %s with account number %s', session.conversationData["payee"], session.conversationData["accountnumber"] );
            managePayees.addPayee(session,session.conversationData["user"], session.conversationData["payee"], session.conversationData["accountnumber"]);
+        }
         }
    // }
    
@@ -261,15 +314,17 @@ bot.dialog('addPayees', [
 //Delete Payees
 bot.dialog('deletePayee', [
     function (session, args, next) {
+        if (!isAttachment(session)) {
         session.dialogData.args = args || {};        
         if (!session.conversationData["user"]) {
             builder.Prompts.text(session, "Sure, Could I have your username please");                
         } else {
             next(); // Skip if we already have this info.
         }
+    }
     },
     function (session, results, next) {
-       // if (!isAttachment(session)) {
+        if (!isAttachment(session)) {
             if (results.response) {
                 session.conversationData["user"] = results.response;
               //  session.send('Adding new payee for:  \'%s\'', session.conversationData["user"]);          
@@ -287,9 +342,12 @@ bot.dialog('deletePayee', [
             } else {
                 builder.Prompts.text(session,"Okay, which payee do you want me to delete?");
             }
+        }
         },
         function(session,results,next)
         {
+            if (!isAttachment(session)) {
+                
             if (results.response) {
                 session.conversationData["payee"] = results.response;
                 session.send('Deleting the payee %s', session.conversationData["payee"]);      
@@ -298,11 +356,13 @@ bot.dialog('deletePayee', [
            {
                next();
            }
-   
+        }
          //  builder.Prompts.text(session,'Now enter the account number', session.conversationData["payee"]);           
         },
         function(session,results,next)
         {
+            if (!isAttachment(session)) {
+                
           //  if (results.response) {
             //    session.send('Adding account number...');                           
               //  session.conversationData["accountnumber"] = results.response;
@@ -310,7 +370,7 @@ bot.dialog('deletePayee', [
            session.send('Deleted the payee : %s', session.conversationData["payee"] );
            managePayees.deletePayee(session,session.conversationData["user"], session.conversationData["payee"]);
         }
-   // }
+    }
    
 ]).triggerAction({
     matches: 'deletePayee'
@@ -319,23 +379,32 @@ bot.dialog('deletePayee', [
 
 //Exchange Rates
 bot.dialog('ExchangeRate',[ function(session, args, next)  {
+    if (!isAttachment(session)) {
           if (session.message && session.message.value) {
                 var base = session.message.value.base;
                 var conversion = session.message.value.conversion;
-                var currency = session.message.value.currency;
+                var inputValue = session.message.value.inputValue;
                 session.send("from %s",base);
                 session.send("to %s",conversion);
-                session.send("value %s",currency);
-                currencyConversion.displayConversions(session, currency, base, conversion);
+                session.send("value %s",inputValue);
+                currencyConversion.displayConversions(session, inputValue, base, conversion);
               
             } else {
                next();
             }
+        }
         },
-           function (session,args){
+          function (session,args){
+            if (!isAttachment(session)) {
+                
             session.dialogData.args = args || {};
+<<<<<<< HEAD
             var adaptiveCard = currencyConversion.displayConversions(session);
       
+=======
+           var adaptiveCard = currencyConversion.displayConversions(session);
+            }
+>>>>>>> integrating-map
         }
     ]).triggerAction({
             matches: 'ExchangeRate'
