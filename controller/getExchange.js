@@ -297,10 +297,11 @@ function displayConversions(message, session, currency, base, conversion) {
     session.send(new builder.Message(session).addAttachment(card));
     var response = JSON.parse(message);
     var jsonResponse = response.rates;
+
     //var conversionCurrency = Object.keys(conversions.rates)[0];
     // var x = session.message.value.base;
+
     for (var symbolValue in jsonResponse) {
-        session.send("Testing currency in getExchange %s", currency);        
         var keyValue = jsonResponse[symbolValue]; 
         session.send("The value of 1 " + conversions.base + " is " + keyValue + " " + symbolValue);
     }
