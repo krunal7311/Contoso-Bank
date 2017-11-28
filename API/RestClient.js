@@ -84,3 +84,4 @@ exports.getCurrencyData = function getData(url, session, callback) {
             }
         });
     };
+

@@ -7,8 +7,11 @@ exports.displayConversions = function getExchangeRates(session,currency, base, c
 }
 
 
-function displayConversions(message, session, currency, base, conversion) {
+function displayConversions(message, session, base, conversion, currency) {
     var conversions = JSON.parse(message);
+session.send("getExchanger from %s ",conversions.base);
+session.send("getExchanger from %s ",conversions.conversion);
+session.send("getExchanger from %s ",conversions.currency);
 
     var card = {
         contentType: "application/vnd.microsoft.card.adaptive",
