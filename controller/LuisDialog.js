@@ -316,7 +316,6 @@ bot.dialog('deletePayee', [
     matches: 'deletePayee'
 });
 
-
 //Exchange Rates
 bot.dialog('ExchangeRate',[ function(session, args, next)  {
     /*     if (session.message && session.message.value) {
@@ -619,15 +618,13 @@ bot.dialog('ExchangeRate',[ function(session, args, next)  {
                         "title": "Submit"
                     }]
                 }
-            }
-        
-
-
+            }        
         }
     ]).triggerAction({
             matches: 'ExchangeRate'
     });
-    
+    var msg = new builder.Message(session).addAttachment(adaptiveCard)
+    session.send(msg);
 
 
 }
