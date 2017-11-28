@@ -3,7 +3,7 @@ var builder = require('botbuilder');
 
 exports.displayConversions = function getExchangeRates(session, inputValue, base, conversion) {
     var url = 'https://api.fixer.io/latest?base=' + base + '&symbols=' + conversion;
-    session.send("Input Value: %s Base: %s , conversion: %s");
+    session.send("Input Value: %s Base: %s , conversion: %s",inputValue, base, conversion);
     rest.getCurrencyData(url, session, displayConversions);
 }
 
