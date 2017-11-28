@@ -305,7 +305,9 @@ function displayConversions(message, session, currency, base, conversion) {
 
     for (var symbolValue in jsonResponse) {
         var keyValue = jsonResponse[symbolValue];
-        session.send("This is the test",conversions.conversion);
+        session.send("This is the test %s",conversions.conversion);
+        session.send("This is the test 2" + conversions.conversion);
+        
         session.send("The value of 1 " + conversions.base + " is " + keyValue + " " + symbolValue);
     }
 
