@@ -321,22 +321,23 @@ bot.dialog('deletePayee', [
 bot.dialog('ExchangeRate',[ function(session, args, next) {
     
             if (session.message && session.message.value) {
-                var base = session.message.value.base;
-                var conversion = session.message.value.conversion;
-                var currency = session.message.value.currency;
-                session.send("from %s",base);
-                session.send("to %s",conversion);
-                session.send("value %s",currency);
-                currencyConversion.displayConversions(session,currency, base, conversion);
+                session.dialogData.args = args || {};
+                var adaptiveCard = currencyConversion.displayConversions(session);
+                var msg = new builder.Message(session).addAttachment(adaptiveCard)
+                session.send(msg);
+                
             } else {
                next();
             }
         },
            function (session,args){
-            session.dialogData.args = args || {};
-            var adaptiveCard = currencyConversion.displayConversions(session);
-            var msg = new builder.Message(session).addAttachment(adaptiveCard)
-            session.send(msg);
+            var base = session.message.value.base;
+            var conversion = session.message.value.conversion;
+            var currency = session.message.value.currency;
+            session.send("from %s",base);
+            session.send("to %s",conversion);
+            session.send("value %s",currency);
+            currencyConversion.displayConversions(session,currency, base, conversion);
         }
     ]).triggerAction({
             matches: 'ExchangeRate'
