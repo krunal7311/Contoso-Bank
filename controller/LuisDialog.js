@@ -318,7 +318,7 @@ bot.dialog('deletePayee', [
 
 
 //Exchange Rates
-bot.dialog('ExchangeRate', function(session, args) {
+bot.dialog('ExchangeRate',[ function(session, args) {
     
             if (session.message && session.message.value) {
                 var base = session.message.value.base;
@@ -329,13 +329,16 @@ bot.dialog('ExchangeRate', function(session, args) {
                 session.send("value %s",currency);
                 currencyConversion.displayConversions(session,currency, base, conversion);
             } else {
-                session.dialogData.args = args || {};
-                var adaptiveCard = currencyConversion.displayConversions(session);
-                var msg = new builder.Message(session).addAttachment(adaptiveCard)
-                session.send(msg);
+               next();
             }
-    
-        }).triggerAction({
+        },
+           function (session,args){
+            session.dialogData.args = args || {};
+            var adaptiveCard = currencyConversion.displayConversions(session);
+            var msg = new builder.Message(session).addAttachment(adaptiveCard)
+            session.send(msg);
+        }
+    ]).triggerAction({
             matches: 'ExchangeRate'
     });
     
