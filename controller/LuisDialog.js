@@ -7,7 +7,6 @@ var currencyConversion = require('./getExchange');
 var customVision = require('./CustomVision');
 exports.startDialog = function (bot) {
     
-    // Replace {YOUR_APP_ID_HERE} and {YOUR_KEY_HERE} with your LUIS app ID and your LUIS key, respectively.
     var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/8d91389d-1f2d-49d4-a961-d79b7b52e241?subscription-key=dfc5411a96604a3ca280f41051ece8a8&verbose=true&timezoneOffset=0&q=');
 
     bot.recognizer(recognizer);
@@ -33,8 +32,68 @@ bot.dialog('help', [
     function (session, args) {
         if (!isAttachment(session)) {
             
-        var endOfLine = require('os').EOL;              
-            session.endDialog("Here is what I can do: "+endOfLine+'\nType something like:'+endOfLine+'\n"My accounts" to get your account information'+endOfLine+'\n"My transactions" to get your transactions'+endOfLine+'\n"Branches near Glenfield/ me" to get information about the closest branch'+endOfLine+'\n"Logout" to log off'+endOfLine+'\nAdd/ Remove/ view Payees'+endOfLine+'\nShow Currency Exchange'+endOfLine+'\nPaste link image to identify japanese currency');                        
+            var card = {
+                'contentType': 'application/vnd.microsoft.card.adaptive',
+                'content': {
+                    '$schema': 'http://adaptivecards.io/schemas/adaptive-card.json',
+                    'type': 'AdaptiveCard',
+                    'version': '1.0',
+                    'body': [
+                        {
+                            'type': 'Container',
+                            'items': [
+                                {
+                                    'type': 'ColumnSet',
+                                    'columns': [
+                                       
+                                        {
+                                            'type': 'Column',
+                                            'size': 'stretch',
+                                            'items': [
+                                            
+                                                {
+                                                    'type': 'TextBlock',
+                                                    'weight': 'bolder',
+                                                    'text': "Heres what you can try",
+                                                    'wrap': true
+                                                },
+                                                {
+                                                    'type': 'TextBlock',
+                                                    'text': "My accounts to get your account types",
+                                                    'wrap': true
+                                                }, {
+                                                    'type': 'TextBlock',
+                                                    'text': "My transactions to know your transactions",
+                                                    'wrap': true
+                                                }, {
+                                                    'type': 'TextBlock',
+                                                    'text': "Branches near me/area to get your nearest branch address",
+                                                    'wrap': true
+                                                },
+                                                {
+                                                    'type': 'TextBlock',
+                                                    'text': "Get currency exchange rates",
+                                                    'wrap': true
+                                                },
+                                                {
+                                                    'type': 'TextBlock',
+                                                    'text': "Logout",
+                                                    'wrap': true
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    'actions': [ /* */ ]
+                }
+              };
+              
+                  
+                
+            session.send(new builder.Message(session).addAttachment(card));                   
     }}
    
 ]).triggerAction({
@@ -65,24 +124,54 @@ bot.dialog('bye', [
 //User enters
 bot.dialog('welcome', [
     
-    function (session, args, next) {
+    function (session, args, ) {
         if (!isAttachment(session)) {
             
-        session.dialogData.args = args || {};   
-             
-        if (!session.conversationData["user"]) { //See if there is any active login session
-            session.send("Hi, I am your personal banking bot. Type 'help' if you need any assistance.");                
-        } else {
-            next(); 
-        }
+       
+  var card = {
+    'contentType': 'application/vnd.microsoft.card.adaptive',
+    'content': {
+        '$schema': 'http://adaptivecards.io/schemas/adaptive-card.json',
+        'type': 'AdaptiveCard',
+        'version': '1.0',
+        'body': [
+            {
+                'type': 'Container',
+                'items': [
+                    {
+                        'type': 'ColumnSet',
+                        'columns': [
+                            {
+                                'type': 'Column',
+                                'size': 'auto',
+                                'items': [
+                                    {
+                                        'type': 'Image',
+                                        'url': 'https://avatars3.githubusercontent.com/u/6422482?s=400&v=4',
+                                        'size': 'medium',
+                                        'style': 'person',
+                                    },
+                                    {   'type': 'TextBlock',
+                                          'text': 'Hello, I am you personal banking bot. Please type help if you need any assistance.',
+                                          'wrap': true
+                                     }
+                                             ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        'actions': [ /* */ ]
     }
-    },
-    function (session, results, next) {
-        if (!isAttachment(session)) {
-            
-        session.send("Hi %s, I am your personal banking bot. Type 'help' if you need any assistance.",session.conversationData["user"] );
-        }   
-    }
+  };
+  
+      
+    
+session.send(new builder.Message(session).addAttachment(card));
+
+}}
+       
     
 ]).triggerAction({
     matches: 'welcome'
@@ -118,7 +207,7 @@ if (!isAttachment(session)) {
 
     bot.dialog('getAddress', [
         function requestarea(session, args, next) {
-            if (!isAttachment(session)) {
+       //     if (!isAttachment(session)) {
             session.dialogData.args = args || {};   
             var areaEntity = builder.EntityRecognizer.findEntity(session.dialogData.args.intent.entities, 'area');
        //     if (areaEntity) {
@@ -134,7 +223,7 @@ if (!isAttachment(session)) {
                            }
                 } else {
                     next(); // Skip if we already have this info.
-               }     
+       //        }     
     }
         },
 
@@ -169,13 +258,13 @@ if (!isAttachment(session)) {
 //Get user account types 
 bot.dialog('GetUserAccount', [
     function (session, args, next) {
-        if (!isAttachment(session)) {
+   //     if (!isAttachment(session)) {
         session.dialogData.args = args || {};        
         if (!session.conversationData["user"]) {
             builder.Prompts.text(session, "Sure, Could I have your username please");                
         } else {
             next(); // Skip if we already have this info.
-        }
+    //    }
     }
     },
     function (session, results, next) {
@@ -196,13 +285,13 @@ bot.dialog('GetUserAccount', [
 //Get user transactions
 bot.dialog('getTransactions', [
     function (session, args, next) {
-        if (!isAttachment(session)) {
+    //    if (!isAttachment(session)) {
         session.dialogData.args = args || {};        
         if (!session.conversationData["user"]) {
             builder.Prompts.text(session, "Sure, Could I have your username please");                
         } else {
             next(); // Skip if we already have this info.
-        }
+   //     }
     }
     },
     function (session, results, next) {
@@ -223,13 +312,13 @@ bot.dialog('getTransactions', [
 //Show Payees
 bot.dialog('displayPayee', [
     function (session, args, next) {
-  if (!isAttachment(session)) {
+  //if (!isAttachment(session)) {
         session.dialogData.args = args || {};        
         if (!session.conversationData["user"]) {
             builder.Prompts.text(session, "Sure, Could I have your username please");                
         } else {
             next(); // Skip if we already have this info.
-        }
+     //   }
   }
     },
     function (session, results, next) {
@@ -251,17 +340,18 @@ bot.dialog('displayPayee', [
 //Add Payees
 bot.dialog('addPayees', [
     function (session, args, next) {
-        if (!isAttachment(session)) {
+      //  if (!isAttachment(session)) {
         session.dialogData.args = args || {};        
         if (!session.conversationData["user"]) {
             builder.Prompts.text(session, "Sure, Could I have your username please");                
         } else {
             next(); // Skip if we already have this info.
         }
-    }
+   // }
     },
+
     function (session, results, next) {
-       if (!isAttachment(session)) {
+    //   if (!isAttachment(session)) {
             if (results.response) {
                 session.conversationData["user"] = results.response;
               //  session.send('Adding new payee for:  \'%s\'', session.conversationData["user"]);          
@@ -278,7 +368,7 @@ bot.dialog('addPayees', [
             } else {
                 builder.Prompts.text(session,"Okay, what would be the payee name?");
             }
-        }
+      //  }
         },
         function(session,results,next)
         {
@@ -314,20 +404,19 @@ bot.dialog('addPayees', [
 //Delete Payees
 bot.dialog('deletePayee', [
     function (session, args, next) {
-        if (!isAttachment(session)) {
+      //  if (!isAttachment(session)) {
         session.dialogData.args = args || {};        
         if (!session.conversationData["user"]) {
             builder.Prompts.text(session, "Sure, Could I have your username please");                
         } else {
             next(); // Skip if we already have this info.
-        }
+     //   }
     }
     },
     function (session, results, next) {
         if (!isAttachment(session)) {
-            if (results.response) {
+        //    if (results.response) {
                 session.conversationData["user"] = results.response;
-              //  session.send('Adding new payee for:  \'%s\'', session.conversationData["user"]);          
            }
             // Pulls out payee entity from the session if it exists
             var payeeEntity = builder.EntityRecognizer.findEntity(session.dialogData.args.intent.entities, 'payee');
@@ -337,12 +426,10 @@ bot.dialog('deletePayee', [
             session.conversationData["payee"] = payeeEntity.entity;
             session.send("deleting %s",  session.conversationData["payee"])
             next();            
-                //    session.send('Added new Payee:  \'%s\'', payeeEntity.entity);
-            //    managePayees.addPayee(session, session.conversationData["user"], payeeEntity.entity); // <-- LINE WE WANT
             } else {
                 builder.Prompts.text(session,"Okay, which payee do you want me to delete?");
             }
-       }
+     //  }
         },
         function(session,results,next)
         {
@@ -351,11 +438,7 @@ bot.dialog('deletePayee', [
             if (results.response) {
                 session.conversationData["payee"] = results.response;
                 session.send('Deleting the payee %s', session.conversationData["payee"]);      
-           //     next();
-           }// else 
-         //  {
-           //    next();
-           //}
+           } 
            session.send('Deleted the payee : %s', session.conversationData["payee"] );
            managePayees.deletePayee(session,session.conversationData["user"], session.conversationData["payee"]);
         }
@@ -386,9 +469,9 @@ bot.dialog('ExchangeRate',[ function(session, args, next)  {
                 var base = session.message.value.base;
                 var conversion = session.message.value.conversion;
                 var inputValue = session.message.value.inputValue;
-                session.send("from %s",base);
-                session.send("to %s",conversion);
-                session.send("value %s",inputValue);
+              //  session.send("from %s",base);
+               // session.send("to %s",conversion);
+                //session.send("value %s",inputValue);
                 currencyConversion.displayConversions(session, inputValue, base, conversion);
               
             } else {
