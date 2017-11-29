@@ -305,7 +305,7 @@ function displayConversions(message, session, inputValue, base, conversion) {
 
     for (var symbolValue in jsonResponse) {
         var keyValue = jsonResponse[symbolValue]; 
-        session.send("The value of 1 " + conversions.base + " is " + keyValue + " " + symbolValue);
+        session.send("1 " + conversions.base + " is equal to" + keyValue + " " + symbolValue);
     }
 
 }
