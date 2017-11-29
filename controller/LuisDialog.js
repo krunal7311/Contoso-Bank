@@ -32,68 +32,8 @@ bot.dialog('help', [
     function (session, args) {
         if (!isAttachment(session)) {
             
-            var card = {
-                'contentType': 'application/vnd.microsoft.card.adaptive',
-                'content': {
-                    '$schema': 'http://adaptivecards.io/schemas/adaptive-card.json',
-                    'type': 'AdaptiveCard',
-                    'version': '1.0',
-                    'body': [
-                        {
-                            'type': 'Container',
-                            'items': [
-                                {
-                                    'type': 'ColumnSet',
-                                    'columns': [
-                                       
-                                        {
-                                            'type': 'Column',
-                                            'size': 'stretch',
-                                            'items': [
-                                            
-                                                {
-                                                    'type': 'TextBlock',
-                                                    'weight': 'bolder',
-                                                    'text': "Heres what you can try",
-                                                    'wrap': true
-                                                },
-                                                {
-                                                    'type': 'TextBlock',
-                                                    'text': "My accounts to get your account types",
-                                                    'wrap': true
-                                                }, {
-                                                    'type': 'TextBlock',
-                                                    'text': "My transactions to know your transactions",
-                                                    'wrap': true
-                                                }, {
-                                                    'type': 'TextBlock',
-                                                    'text': "Branches near me/area to get your nearest branch address",
-                                                    'wrap': true
-                                                },
-                                                {
-                                                    'type': 'TextBlock',
-                                                    'text': "Get currency exchange rates",
-                                                    'wrap': true
-                                                },
-                                                {
-                                                    'type': 'TextBlock',
-                                                    'text': "Logout",
-                                                    'wrap': true
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ],
-                    'actions': [ /* */ ]
-                }
-              };
-              
-                  
-                
-            session.send(new builder.Message(session).addAttachment(card));                   
+        var endOfLine = require('os').EOL;              
+            session.endDialog("Here is what I can do: "+endOfLine+'\nType something like:'+endOfLine+'\n"My accounts" to get your account information'+endOfLine+'\n"My transactions" to get your transactions'+endOfLine+'\n"Branches near Glenfield/ me" to get information about the closest branch'+endOfLine+'\n"Logout" to log off'+endOfLine+'\nAdd/ Remove/ view Payees'+endOfLine+'\nShow Currency Exchange'+endOfLine+'\nPaste link image to identify japanese currency');                        
     }}
    
 ]).triggerAction({
@@ -127,49 +67,9 @@ bot.dialog('welcome', [
     function (session, args, ) {
         if (!isAttachment(session)) {
             
-       
-  var card = {
-    'contentType': 'application/vnd.microsoft.card.adaptive',
-    'content': {
-        '$schema': 'http://adaptivecards.io/schemas/adaptive-card.json',
-        'type': 'AdaptiveCard',
-        'version': '1.0',
-        'body': [
-            {
-                'type': 'Container',
-                'items': [
-                    {
-                        'type': 'ColumnSet',
-                        'columns': [
-                            {
-                                'type': 'Column',
-                                'size': 'auto',
-                                'items': [
-                                    {
-                                        'type': 'Image',
-                                        'url': 'https://avatars3.githubusercontent.com/u/6422482?s=400&v=4',
-                                        'size': 'medium',
-                                        'style': 'person',
-                                    },
-                                    {   'type': 'TextBlock',
-                                          'text': 'Hello, I am you personal banking bot. Please type help if you need any assistance.',
-                                          'wrap': true
-                                     }
-                                             ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        'actions': [ /* */ ]
+        session.send("Hi, I am your personal banking bot. Type 'help' if you need any assistance." );
+        }   
     }
-  };
-  
-session.send(new builder.Message(session).addAttachment(card));
-
-}}
-       
     
 ]).triggerAction({
     matches: 'welcome'
