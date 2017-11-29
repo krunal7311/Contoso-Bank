@@ -64,7 +64,7 @@ bot.dialog('bye', [
 //User enters
 bot.dialog('welcome', [
     
-    function (session, args, ) {
+    function (session, args, next) {
         if (!isAttachment(session)) {
             
         session.send("Hi, I am your personal banking bot. Type 'help' if you need any assistance." );
