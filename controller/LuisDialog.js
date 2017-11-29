@@ -166,8 +166,6 @@ bot.dialog('welcome', [
     }
   };
   
-      
-    
 session.send(new builder.Message(session).addAttachment(card));
 
 }}
